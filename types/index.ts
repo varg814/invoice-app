@@ -6,17 +6,21 @@ export interface StoreState {
 export interface ButtonProps {
   children: React.ReactNode;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
-  className: string;
+  className?: string;
 }
 
 export interface InputProps {
   type: string;
-  className: string;
-  value: number | string;
+  className?: string;
+  value?: any;
+  checked?: boolean;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
-  placeholder: string;
+  placeholder?: string;
+  id: string;
 }
 
-export interface InvoiceProps {
-  id: string;
+export interface LabelProps {
+  htmlFor?: string;
+  children: React.ReactNode;
+  className?: string;
 }

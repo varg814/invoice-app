@@ -32,7 +32,7 @@ const Navbar = () => {
         w-[103px] h-[103px] rounded-tr-[20px] rounded-br-[20px]
         max-md:w-[80px] max-md:h-[80px] max-sm:w-[72px] max-sm:h-[72px]"
         >
-          <Image src={logo} alt="logo icon" height={40} width={40} />
+          <Image src={logo} alt="logo icon" className="h-[40px] w-[40px]" />
         </div>
 
         <div
@@ -44,7 +44,7 @@ const Navbar = () => {
             <Image src={icon} alt="Toggle theme icon" />
           </Button>
 
-          <div className="bg-[#494E6E] w-full h-[1px] max-md:w-[1px] max-md:h-[80px]" />
+          <div className="bg-[#494E6E] w-full h-[1px] max-md:w-[1px] max-md:h-[80px] max-sm:h-[72px]" />
 
           <Image
             src={avatar}

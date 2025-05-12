@@ -7,9 +7,11 @@ const Input = ({
   value,
   onChange,
   placeholder,
+  id
 }: InputProps) => {
   return (
     <input
+    id={id}
       type={type}
       className={className}
       value={value}
