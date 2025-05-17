@@ -3,7 +3,10 @@ import Button from "@/components/atoms/button/Button";
 import Image from "next/image";
 import buttonArrow from "@/assets/icon-arrow-right.svg";
 import useStore from "@/store/useStore";
+<<<<<<< HEAD
 import InvoiceStatus from "@/components/atoms/invoice-status/InvoiceStatus";
+=======
+>>>>>>> recover local changes
 
 const Invoice = () => {
   const isDarkMode = useStore((state) => state.isDarkMode);
@@ -48,7 +51,20 @@ const Invoice = () => {
         <h1 className={`text-[15px] font-bold ${primaryText}`}>£ 1,800.90</h1>
 
         <div className="flex gap-[20px] max-sm:gap-0">
+<<<<<<< HEAD
           <InvoiceStatus />
+=======
+          <div
+            className={`
+              h-[40px] w-[104px] rounded-md
+              bg-[#33D69F]/5 text-[#33D69F]
+              text-[15px] font-bold
+              flex justify-center items-center
+            `}
+          >
+            <h1 className="leading-[15px]">Paid</h1>
+          </div>
+>>>>>>> recover local changes
 
           <Button className="cursor-pointer" onClick={() => console.log("oe")}>
             <Image

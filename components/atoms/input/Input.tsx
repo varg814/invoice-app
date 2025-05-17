@@ -7,16 +7,29 @@ const Input = ({
   value,
   onChange,
   placeholder,
+<<<<<<< HEAD
   id
 }: InputProps) => {
   return (
     <input
     id={id}
+=======
+  id,
+  onBlur,
+}: InputProps) => {
+  return (
+    <input
+      id={id}
+>>>>>>> recover local changes
       type={type}
       className={className}
       value={value}
       onChange={onChange}
       placeholder={placeholder}
+<<<<<<< HEAD
+=======
+      onBlur={onBlur}
+>>>>>>> recover local changes
     />
   );
 };
