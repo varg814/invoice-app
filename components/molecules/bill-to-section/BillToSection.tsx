@@ -1,23 +1,13 @@
 import React from "react";
-import { useState } from "react";
 import useStore from "../../../store/useStore";
 import Input from "@/components/atoms/input/Input";
 import { useFormik } from "formik";
 import { invoiceFormSchema } from "@/schemas/invoiceFormSchema";
 const BillToSection = () => {
   const isDarkMode = useStore((state) => state.isDarkMode);
-  const toggleTheme = useStore((state) => state.toggleTheme);
   const inputTextsColor = isDarkMode ? "text-[#DFE3FA]" : "text-[#7E88C3]";
   const insideInputTextColor = isDarkMode ? "text-[#FFFFFF]" : "text-[#0C0E16]";
-  const {
-    values,
-    handleBlur,
-    handleChange,
-    setFieldValue,
-    handleSubmit,
-    errors,
-    touched,
-  } = useFormik({
+  const { values, handleBlur, handleChange, errors, touched } = useFormik({
     initialValues: {
       email: "",
       senderAddress: "",

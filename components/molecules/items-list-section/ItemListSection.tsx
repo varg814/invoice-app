@@ -1,6 +1,5 @@
 import React from "react";
 import { useFormik } from "formik";
-import { useState } from "react";
 import useStore from "@/store/useStore";
 import { invoiceFormSchema } from "@/schemas/invoiceFormSchema";
 import Input from "@/components/atoms/input/Input";
@@ -8,21 +7,9 @@ import Image from "next/image";
 import trashIcon from "@/assets/icon-delete.svg";
 const ItemListSection = () => {
   const isDarkMode = useStore((state) => state.isDarkMode);
-  const toggleTheme = useStore((state) => state.toggleTheme);
   const inputTextsColor = isDarkMode ? "text-[#DFE3FA]" : "text-[#7E88C3]";
   const insideInputTextColor = isDarkMode ? "text-[#FFFFFF]" : "text-[#0C0E16]";
-  const [total, setTotal] = useState(0);
-  const [items, setItems] = useState([]);
-  const addTask = () => {};
-  const {
-    values,
-    handleBlur,
-    handleChange,
-    setFieldValue,
-    handleSubmit,
-    errors,
-    touched,
-  } = useFormik({
+  const { values, handleBlur, handleChange, errors, touched } = useFormik({
     initialValues: {
       email: "",
       senderAddress: "",
@@ -104,7 +91,7 @@ const ItemListSection = () => {
       </div>
       <div className="total_div w-full max-w-[50px] flex flex-col items-start gap-3">
         <p className={`text-sm font-medium ${inputTextsColor}`}>Total</p>
-        <h1 className="mt-2 text-[#888EB0] text-[15px]">{total}</h1>
+        <h1 className="mt-2 text-[#888EB0] text-[15px]"></h1>
       </div>
       <Image
         src={trashIcon}

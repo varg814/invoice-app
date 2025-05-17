@@ -22,7 +22,6 @@ const PaymentTermsDropdown: React.FC<PaymentTermsDropdownProps> = ({
     setIsOpen((prev) => !prev);
   };
   const isDarkMode = useStore((state) => state.isDarkMode);
-  const toggleTheme = useStore((state) => state.toggleTheme);
   const inputTextsColor = isDarkMode ? "text-[#DFE3FA]" : "text-[#7E88C3]";
   const insideInputTextColor = isDarkMode ? "text-[#FFFFFF]" : "text-[#0C0E16]";
 

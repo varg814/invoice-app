@@ -10,7 +10,6 @@ import PaymentTermsDropdown from "@/components/molecules/payment-terms-dropdown/
 import CalendarDemo from "@/components/atoms/calendar/CalendarDemo";
 const DateAndDescribtion = () => {
   const isDarkMode = useStore((state) => state.isDarkMode);
-  const toggleTheme = useStore((state) => state.toggleTheme);
   const inputTextsColor = isDarkMode ? "text-[#DFE3FA]" : "text-[#7E88C3]";
   const insideInputTextColor = isDarkMode ? "text-[#FFFFFF]" : "text-[#0C0E16]";
   const [isHidden, setIsHidden] = useState(true);
@@ -19,39 +18,32 @@ const DateAndDescribtion = () => {
     setIsHidden((prev) => !prev);
   };
 
-  const {
-    values,
-    handleBlur,
-    handleChange,
-    setFieldValue,
-    handleSubmit,
-    errors,
-    touched,
-  } = useFormik({
-    initialValues: {
-      email: "",
-      senderAddress: "",
-      senderCity: "",
-      senderPostCode: "",
-      senderCountry: "",
-      clientName: "",
-      clientAddress: "",
-      clientCity: "",
-      clientPostCode: "",
-      clientCountry: "",
-      invoiceDate: new Date().toISOString(),
-      description: "",
-      itemName: "",
-      qty: "",
-      price: "",
-      total: "",
-      paymentTerms: "Net 30 Days",
-    },
-    onSubmit: (values) => {
-      console.log("Submitted!", values);
-    },
-    validationSchema: invoiceFormSchema,
-  });
+  const { values, handleBlur, handleChange, setFieldValue, errors, touched } =
+    useFormik({
+      initialValues: {
+        email: "",
+        senderAddress: "",
+        senderCity: "",
+        senderPostCode: "",
+        senderCountry: "",
+        clientName: "",
+        clientAddress: "",
+        clientCity: "",
+        clientPostCode: "",
+        clientCountry: "",
+        invoiceDate: new Date().toISOString(),
+        description: "",
+        itemName: "",
+        qty: "",
+        price: "",
+        total: "",
+        paymentTerms: "Net 30 Days",
+      },
+      onSubmit: (values) => {
+        console.log("Submitted!", values);
+      },
+      validationSchema: invoiceFormSchema,
+    });
 
   return (
     <div className="date_and_description_div w-full max-w-[504px] !mt-[50px] gap-4">

@@ -1,9 +1,8 @@
 import React from "react";
 import { OnDiscardProps } from "@/types";
 import useStore from "@/store/useStore";
-const InvoiceFooter = ({ onDiscard, onClose }: OnDiscardProps) => {
+const InvoiceFooter = ({ onDiscard }: OnDiscardProps) => {
   const isDarkMode = useStore((state) => state.isDarkMode);
-  const toggleTheme = useStore((state) => state.toggleTheme);
   const formFooterBgColor = isDarkMode ? "bg-[#141625]" : "bg-[#FFFFFF]";
   return (
     <div

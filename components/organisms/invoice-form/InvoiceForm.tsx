@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 import InvoiceFooter from "@/components/molecules/invoice-footer/InvoiceFooter";
 import useStore from "../../../store/useStore";
 import { useEffect } from "react";
@@ -11,20 +10,10 @@ import DateAndDescribtion from "@/components/molecules/date-describtion-section/
 import ItemListSection from "@/components/molecules/items-list-section/ItemListSection";
 const InvoiceForm = ({ onClose }: { onClose: () => void }) => {
   const isDarkMode = useStore((state) => state.isDarkMode);
-  const toggleTheme = useStore((state) => state.toggleTheme);
   const formBgColor = isDarkMode ? "bg-[#141625]" : "bg-[#DFE3FA]";
-  const [isHidden, setIsHidden] = useState(true);
-  const [showForm, setShowForm] = useState(false);
-  const [total, setTotal] = useState(0);
-  const {
-    values,
-    handleBlur,
-    handleChange,
-    setFieldValue,
-    handleSubmit,
-    errors,
-    touched,
-  } = useFormik({
+  // const [showForm, setShowForm] = useState(false);
+  // const [total, setTotal] = useState(0);
+  const { values, setFieldValue, errors } = useFormik({
     initialValues: {
       email: "",
       senderAddress: "",
@@ -54,7 +43,7 @@ const InvoiceForm = ({ onClose }: { onClose: () => void }) => {
     const qty = parseFloat(values.qty) || 0;
     const unitPrice = parseFloat(values.price) || 0;
     const calculatedTotal = qty * unitPrice;
-    setTotal(calculatedTotal);
+    // setTotal(calculatedTotal);
     setFieldValue("total", calculatedTotal.toString());
   }, [values.qty, values.price, setFieldValue]);
   useEffect(() => {
@@ -62,7 +51,8 @@ const InvoiceForm = ({ onClose }: { onClose: () => void }) => {
   });
   return (
     <div className="fixed top-0 left-[103px] w-full h-full flex max-md:left-0 max-md:top-[80px] max-md:!mb-[120px] max-sm:w-full max-sm:h-screen max-sm:top-[72px]">
-      {!showForm && (
+      {/* {!showForm && ( */}
+      {false && (
         <div
           className={`relative w-[616px] ${formBgColor} shadow-lg h-full max-sm:w-full max-w-full`}
         >
