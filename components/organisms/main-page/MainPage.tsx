@@ -2,9 +2,9 @@
 import React from "react";
 import useStore from "@/store/useStore";
 import Invoice from "@/components/molecules/invoice/Invoice";
-import FilterDropdown from "@/components/organisms/filter-dropdown/FilterDropdown";
-import NewInvoice from "@/components/organisms/new-invoice/NewInvoice";
-import HeaderArticle from "@/components/organisms/header-article/HeaderArticle";
+import FilterDropdown from "@/components/molecules/filter-dropdown/FilterDropdown";
+import NewInvoice from "@/components/molecules/new-invoice/NewInvoice";
+import HeaderArticle from "@/components/molecules/header-article/HeaderArticle";
 
 const MainPage = () => {
   const isDarkMode = useStore((state) => state.isDarkMode);
