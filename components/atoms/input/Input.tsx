@@ -7,16 +7,18 @@ const Input = ({
   value,
   onChange,
   placeholder,
-  id
+  id,
+  onBlur,
 }: InputProps) => {
   return (
     <input
-    id={id}
+      id={id}
       type={type}
       className={className}
       value={value}
       onChange={onChange}
       placeholder={placeholder}
+      onBlur={onBlur}
     />
   );
 };

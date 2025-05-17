@@ -49,7 +49,6 @@ const Invoice = () => {
 
         <div className="flex gap-[20px] max-sm:gap-0">
           <InvoiceStatus />
-
           <Button className="cursor-pointer" onClick={() => console.log("oe")}>
             <Image
               src={buttonArrow}
