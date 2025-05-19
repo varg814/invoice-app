@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import InvoiceFooter from "@/components/molecules/invoice-footer/InvoiceFooter";
 import useStore from "../../../store/useStore";
 import { useEffect } from "react";
@@ -11,8 +12,7 @@ import ItemListSection from "@/components/molecules/items-list-section/ItemListS
 const InvoiceForm = ({ onClose }: { onClose: () => void }) => {
   const isDarkMode = useStore((state) => state.isDarkMode);
   const formBgColor = isDarkMode ? "bg-[#141625]" : "bg-[#DFE3FA]";
-  // const [showForm, setShowForm] = useState(false);
-  // const [total, setTotal] = useState(0);
+  const [showForm] = useState(false);
   const { values, setFieldValue, errors } = useFormik({
     initialValues: {
       email: "",
@@ -52,7 +52,7 @@ const InvoiceForm = ({ onClose }: { onClose: () => void }) => {
   return (
     <div className="fixed top-0 left-[103px] w-full h-full flex max-md:left-0 max-md:top-[80px] max-md:!mb-[120px] max-sm:w-full max-sm:h-screen max-sm:top-[72px]">
       {/* {!showForm && ( */}
-      {false && (
+      {!showForm && (
         <div
           className={`relative w-[616px] ${formBgColor} shadow-lg h-full max-sm:w-full max-w-full`}
         >
