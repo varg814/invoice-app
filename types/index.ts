@@ -10,17 +10,31 @@ export interface ButtonProps {
 }
 
 export interface InputProps {
-  type: string;
+  type?: string;
   className?: string;
   value?: any;
   checked?: boolean;
-  onChange: React.ChangeEventHandler<HTMLInputElement>;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
   placeholder?: string;
-  id: string;
+  id?: string;
+  name?: string;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
 }
 
 export interface LabelProps {
   htmlFor?: string;
   children: React.ReactNode;
   className?: string;
+}
+export interface PaymentTermsDropdownProps {
+  value?: string;
+  onChange?: (value: string) => void;
+}
+export interface CalendarDemoProps {
+  date: Date | undefined;
+  onChange: (date: Date | undefined) => void;
+}
+export interface OnDiscardProps {
+  onDiscard: () => void;
+  onClose: () => void;
 }
