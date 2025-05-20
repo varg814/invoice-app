@@ -11,7 +11,7 @@ import DateAndDescribtion from "@/components/molecules/date-describtion-section/
 import ItemListSection from "@/components/molecules/items-list-section/ItemListSection";
 const InvoiceForm = ({ onClose }: { onClose: () => void }) => {
   const isDarkMode = useStore((state) => state.isDarkMode);
-  const formBgColor = isDarkMode ? "bg-[#141625]" : "bg-[#DFE3FA]";
+  const formBgColor = isDarkMode ? "bg-[#141625]" : "bg-[#fff]";
   const [showForm] = useState(false);
   const { values, setFieldValue, errors } = useFormik({
     initialValues: {
@@ -49,17 +49,34 @@ const InvoiceForm = ({ onClose }: { onClose: () => void }) => {
   useEffect(() => {
     document.body.classList.add("overflow-hidden");
   });
+
+  function useResponsiveHeight() {
+    const [maxHeight, setMaxHeight] = useState("calc(100vh - 176px)");
+
+    useEffect(() => {
+      const updateHeight = () => {
+        const isSmall = window.innerWidth <= 640;
+        setMaxHeight(isSmall ? "calc(100vh - 120px)" : "calc(100vh - 176px)");
+      };
+
+      updateHeight();
+      window.addEventListener("resize", updateHeight);
+      return () => window.removeEventListener("resize", updateHeight);
+    }, []);
+
+    return maxHeight;
+  }
+
+  const maxHeight = useResponsiveHeight();
+
   return (
-    <div className="fixed top-0 left-[103px] w-full h-full flex max-md:left-0 max-md:top-[80px] max-md:!mb-[120px] max-sm:w-full max-sm:h-screen max-sm:top-[72px]">
+    <div className="fixed top-0 left-[103px] w-full h-full flex max-md:left-0 max-md:top-[80px] max-md:!mb-[120px] max-sm:w-full max-sm:h-screen max-sm:top-[72px] bg-black/50">
       {/* {!showForm && ( */}
       {!showForm && (
         <div
-          className={`relative w-[616px] ${formBgColor} shadow-lg h-full max-sm:w-full max-w-full`}
+          className={`relative w-[616px] ${formBgColor} shadow-lg h-full p-14 max-sm:w-full max-w-full max-sm:p-6`}
         >
-          <div
-            className="overflow-y-auto p-10"
-            style={{ maxHeight: "calc(100vh - 80px)" }}
-          >
+          <div className="overflow-y-auto scrollbar-hide" style={{ maxHeight }}>
             <h1
               className={`text-2xl font-bold mb-4 ${
                 isDarkMode ? "text-white" : "text-[#0C0E16]"
@@ -70,7 +87,7 @@ const InvoiceForm = ({ onClose }: { onClose: () => void }) => {
             <BillFromSection />
             <BillToSection />
             <DateAndDescribtion />
-            <h1 className="text-[#777F98] text-[24px] leading-[32px] !mt-[35px]">
+            <h1 className="text-[#777F98] text-[24px] leading-[32px] !mt-[35px] !mb-6">
               Item List
             </h1>
             <ItemListSection />

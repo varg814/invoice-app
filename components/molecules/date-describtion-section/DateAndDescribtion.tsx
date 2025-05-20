@@ -46,9 +46,9 @@ const DateAndDescribtion = () => {
     });
 
   return (
-    <div className="date_and_description_div w-full max-w-[504px] !mt-[50px] gap-4">
-      <div className="date_div flex  items-center justify-between">
-        <div className="invoice_date_div w-full max-w-[240px] relative">
+    <div className="date_and_description_div w-full  !mt-[50px] gap-6">
+      <div className="date_div flex  items-center justify-between max-sm:flex-col max-sm:gap-6">
+        <div className="invoice_date_div w-full max-w-[240px] relative max-sm:max-w-full">
           <p className={`text-sm font-medium ${inputTextsColor}`}>
             Invoice Date
           </p>

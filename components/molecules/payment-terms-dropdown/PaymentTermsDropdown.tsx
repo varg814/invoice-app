@@ -32,7 +32,7 @@ const PaymentTermsDropdown: React.FC<PaymentTermsDropdownProps> = ({
   };
 
   return (
-    <div className="relative w-full max-w-[240px]">
+    <div className="relative w-full max-w-[240px] max-sm:max-w-full">
       <p className={`text-sm font-medium ${inputTextsColor} mb-1`}>
         Payment Terms
       </p>

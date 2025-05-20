@@ -35,8 +35,8 @@ const ItemListSection = () => {
     validationSchema: invoiceFormSchema,
   });
   return (
-    <div className="items_div flex justify-between w-full max-w-[514px]">
-      <div className="items_name_div w-full max-w-[214px] flex flex-col items-start">
+    <div className="items_div flex justify-between w-full max-w-[514px] gap-4 max-sm:gap-6 max-sm:flex-col">
+      <div className="items_name_div w-full max-w-[214px] flex flex-col items-start max-sm:max-w-full">
         <p className={`text-sm font-medium ${inputTextsColor}`}>Item Name</p>
         <Input
           name="itemName"
@@ -55,50 +55,54 @@ const ItemListSection = () => {
           <p className="text-red-500 text-[12px]">{errors.itemName}</p>
         )}
       </div>
-      <div className="quantity_div w-full max-w-[46px] flex flex-col items-start">
-        <p className={`text-sm font-medium ${inputTextsColor}`}>Qty.</p>
-        <Input
-          name="qty"
-          id="qty"
-          type="number"
-          className={`bg-transparent ${insideInputTextColor} border border-gray-300 p-2 rounded-lg w-full ${
-            errors.qty && touched.qty ? "border-red-500" : "border-gray-300"
-          }`}
-          value={values.qty ?? 0}
-          onChange={handleChange}
-          onBlur={handleBlur}
+      <div className="flex w-full justify-between">
+        <div className="quantity_div w-full max-w-[46px] flex flex-col items-start">
+          <p className={`text-sm font-medium ${inputTextsColor}`}>Qty.</p>
+          <Input
+            name="qty"
+            id="qty"
+            type="number"
+            className={`bg-transparent ${insideInputTextColor} border border-gray-300 p-2 rounded-lg w-full ${
+              errors.qty && touched.qty ? "border-red-500" : "border-gray-300"
+            }`}
+            value={values.qty ?? 0}
+            onChange={handleChange}
+            onBlur={handleBlur}
+          />
+          {errors.qty && touched.qty && (
+            <p className="text-red-500 text-[12px]">{errors.qty}</p>
+          )}
+        </div>
+        <div className="price_div w-full max-w-[100px] flex flex-col items-start">
+          <p className={`text-sm font-medium ${inputTextsColor}`}>Price</p>
+          <Input
+            name="price"
+            id="price"
+            type="number"
+            className={`bg-transparent ${insideInputTextColor} border border-gray-300 p-2 rounded-lg w-full ${
+              errors.price && touched.price
+                ? "border-red-500"
+                : "border-gray-300"
+            }`}
+            value={values.price ?? 0}
+            onChange={handleChange}
+            onBlur={handleBlur}
+          />
+          {errors.price && touched.price && (
+            <p className="text-red-500 text-[12px]">{errors.price}</p>
+          )}
+        </div>
+        <div className="total_div w-full max-w-[50px] flex flex-col items-start gap-3">
+          <p className={`text-sm font-medium ${inputTextsColor}`}>Total</p>
+          <h1 className="mt-2 text-[#888EB0] text-[15px]"></h1>
+        </div>
+        <Image
+          src={trashIcon}
+          alt="trash_icon"
+          width={12}
+          className="object-contain cursor-pointer"
         />
-        {errors.qty && touched.qty && (
-          <p className="text-red-500 text-[12px]">{errors.qty}</p>
-        )}
       </div>
-      <div className="price_div w-full max-w-[100px] flex flex-col items-start">
-        <p className={`text-sm font-medium ${inputTextsColor}`}>Price</p>
-        <Input
-          name="price"
-          id="price"
-          type="number"
-          className={`bg-transparent ${insideInputTextColor} border border-gray-300 p-2 rounded-lg w-full ${
-            errors.price && touched.price ? "border-red-500" : "border-gray-300"
-          }`}
-          value={values.price ?? 0}
-          onChange={handleChange}
-          onBlur={handleBlur}
-        />
-        {errors.price && touched.price && (
-          <p className="text-red-500 text-[12px]">{errors.price}</p>
-        )}
-      </div>
-      <div className="total_div w-full max-w-[50px] flex flex-col items-start gap-3">
-        <p className={`text-sm font-medium ${inputTextsColor}`}>Total</p>
-        <h1 className="mt-2 text-[#888EB0] text-[15px]"></h1>
-      </div>
-      <Image
-        src={trashIcon}
-        alt="trash_icon"
-        width={12}
-        className="object-contain cursor-pointer"
-      />
     </div>
   );
 };

@@ -35,7 +35,7 @@ const BillToSection = () => {
   return (
     <div className="bill_to flex flex-col gap-4 !mt-[50px] ">
       <h2 className="text-lg font-semibold text-[#7C5DFA]">Bill To</h2>
-      <div className="address_input_div w-full max-w-[504px]">
+      <div className="address_input_div w-full">
         <p className={`text-sm font-medium ${inputTextsColor}`}>
           Client’s Name
         </p>
@@ -56,7 +56,7 @@ const BillToSection = () => {
           <p className="text-red-500 text-[12px]">{errors.clientName}</p>
         )}
       </div>
-      <div className="address_input_div w-full max-w-[504px]">
+      <div className="address_input_div w-full">
         <p className={`text-sm font-medium ${inputTextsColor}`}>
           Client’s Email
         </p>
@@ -75,7 +75,7 @@ const BillToSection = () => {
           <p className="text-red-500 text-[12px]">{errors.email}</p>
         )}
       </div>
-      <div className="address_input_div w-full max-w-[504px]">
+      <div className="address_input_div w-full">
         <p className={`text-sm font-medium ${inputTextsColor}`}>
           Street Address
         </p>
@@ -96,46 +96,52 @@ const BillToSection = () => {
           <p className="text-red-500 text-[12px]">{errors.clientAddress}</p>
         )}
       </div>
-      <div className="little_inputs_div flex w-full max-w-[504px] justify-between">
-        <div className="city_input_div w-[152px]">
-          <p className={`text-sm font-medium ${inputTextsColor}`}>City</p>
-          <Input
-            name="clientCity"
-            id="clientCity"
-            value={values.clientCity}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            type="text"
-            className={`bg-transparent ${insideInputTextColor} border border-gray-300 p-2 rounded-lg w-full ${
-              errors.clientCity && touched.clientCity
-                ? "border-red-500"
-                : "border-gray-300"
-            }`}
-          />
-          {errors.clientCity && touched.clientCity && (
-            <p className="text-red-500 text-[12px]">{errors.clientCity}</p>
-          )}
+      <div className="little_inputs_div flex w-full gap-6 max-sm:flex-col">
+        <div className="flex justify-between gap-6">
+          <div className="city_input_div max-w-[152px] w-full">
+            <p className={`text-sm font-medium ${inputTextsColor}`}>City</p>
+            <Input
+              name="clientCity"
+              id="clientCity"
+              value={values.clientCity}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              type="text"
+              className={`bg-transparent ${insideInputTextColor} border border-gray-300 p-2 rounded-lg w-full ${
+                errors.clientCity && touched.clientCity
+                  ? "border-red-500"
+                  : "border-gray-300"
+              }`}
+            />
+            {errors.clientCity && touched.clientCity && (
+              <p className="text-red-500 text-[12px]">{errors.clientCity}</p>
+            )}
+          </div>
+          <div className="postcode_input_div max-w-[152px] w-full">
+            <p className={`text-sm font-medium ${inputTextsColor}`}>
+              Post Code
+            </p>
+            <Input
+              name="clientPostCode"
+              id="clientPostCode"
+              value={values.clientPostCode}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              type="text"
+              className={`bg-transparent ${insideInputTextColor} border border-gray-300 p-2 rounded-lg w-full ${
+                errors.clientPostCode && touched.clientPostCode
+                  ? "border-red-500"
+                  : "border-gray-300"
+              }`}
+            />
+            {errors.clientPostCode && touched.clientPostCode && (
+              <p className="text-red-500 text-[12px]">
+                {errors.clientPostCode}
+              </p>
+            )}
+          </div>
         </div>
-        <div className="postcode_input_div w-[152px]">
-          <p className={`text-sm font-medium ${inputTextsColor}`}>Post Code</p>
-          <Input
-            name="clientPostCode"
-            id="clientPostCode"
-            value={values.clientPostCode}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            type="text"
-            className={`bg-transparent ${insideInputTextColor} border border-gray-300 p-2 rounded-lg w-full ${
-              errors.clientPostCode && touched.clientPostCode
-                ? "border-red-500"
-                : "border-gray-300"
-            }`}
-          />
-          {errors.clientPostCode && touched.clientPostCode && (
-            <p className="text-red-500 text-[12px]">{errors.clientPostCode}</p>
-          )}
-        </div>
-        <div className="country_input_div w-[152px]">
+        <div className="country_input_div max-w-[152px] w-full max-sm:max-w-full">
           <p className={`text-sm font-medium ${inputTextsColor}`}>Country</p>
           <Input
             name="clientCountry"
