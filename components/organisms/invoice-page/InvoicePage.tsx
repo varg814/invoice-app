@@ -18,7 +18,7 @@ const InvoicePage = () => {
   const secondaryBgColor = isDarkMode ? "bg-[#1E2139]" : "bg-[#fff]";
 
   const useIsSmUp = () => {
-    const [isSmUp, setIsSmUp] = useState(false);
+    const [isSmUp, setIsSmUp] = useState(true);
 
     useEffect(() => {
       const check = () => setIsSmUp(window.innerWidth >= 640);
@@ -31,6 +31,7 @@ const InvoicePage = () => {
   };
 
   const isSmUp = useIsSmUp();
+  
   return (
     <>
       <main

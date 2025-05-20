@@ -10,7 +10,7 @@ const InvoiceHeader = () => {
   const textColor = isDarkMode ? "text-[#fff]" : "text-[#7E88C3]";
 
   const useIsSmUp = () => {
-    const [isSmUp, setIsSmUp] = useState(false);
+    const [isSmUp, setIsSmUp] = useState(true);
 
     useEffect(() => {
       const check = () => setIsSmUp(window.innerWidth >= 640);
