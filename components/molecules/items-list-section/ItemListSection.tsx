@@ -35,7 +35,7 @@ const ItemListSection = () => {
     validationSchema: invoiceFormSchema,
   });
   return (
-    <div className="items_div flex justify-between w-full max-w-[514px] gap-4 max-sm:gap-6 max-sm:flex-col">
+    <div className="items_div flex justify-between w-full gap-4 max-sm:gap-6 max-sm:flex-col">
       <div className="items_name_div w-full max-w-[214px] flex flex-col items-start max-sm:max-w-full">
         <p className={`text-sm font-medium ${inputTextsColor}`}>Item Name</p>
         <Input

@@ -92,7 +92,7 @@ const InvoiceForm = ({ onClose }: { onClose: () => void }) => {
             </h1>
             <ItemListSection />
             <button
-              className={`w-full max-w-[504px] h-[48px] ${
+              className={`w-full  h-[48px] ${
                 isDarkMode ? "bg-[#252945]" : "bg-[#F9FAFE] "
               } cursor-pointer rounded-[24px] !mt-[24px] !mb-5 text-[#7E88C3] max-md:!mb-[120px]`}
             >
