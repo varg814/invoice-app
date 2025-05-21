@@ -1,7 +1,7 @@
 import React from "react";
 import { InvoiceStatusProps } from "@/types";
 
-const InvoiceStatus = ({ status }: InvoiceStatusProps) => {
+const InvoiceStatus = ({ status = "undefined" }: InvoiceStatusProps) => {
   const statusStyles: { [key: string]: string } = {
     paid: "bg-[#33D69F]/5 text-[#33D69F]",
     pending: "bg-[#FF8F00]/5 text-[#FF8F00]",
