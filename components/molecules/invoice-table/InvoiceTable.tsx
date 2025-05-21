@@ -22,7 +22,7 @@ const InvoiceTable = () => {
           <p className={`${pColor} text-[13px] leading-[18px] max-sm:hidden`}>
             Item Name
           </p>
-          {invoice?.items.map((item, key) => (
+          {invoice?.items.map((item) => (
             <article className="sm:flex-col gap-2" key={item.name}>
               <h1
                 className={`${
