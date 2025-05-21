@@ -30,12 +30,15 @@ const Navbar = () => {
         max-md:flex-row max-md:w-full max-md:h-[80px] max-md:rounded-none max-sm:h-[72px]`}
       >
         <div
-          className="flex items-center justify-center bg-[#7C5DFA] shrink-0 
-        w-[103px] h-[103px] rounded-tr-[20px] rounded-br-[20px]
-        max-md:w-[80px] max-md:h-[80px] max-sm:w-[72px] max-sm:h-[72px]"
+          className="h-[103px] w-[103px] bg-[#7C5DFA] rounded-tr-[20px] rounded-br-[20px] flex items-end relative max-md:w-[80px] max-md:h-[80px] max-sm:w-[72px] max-sm:h-[72px] shrink-0"
           onClick={() => route.push("/")}
         >
-          <Image src={logo} alt="logo icon" className="h-[40px] w-[40px]" />
+          <div className="h-1/2 w-full bg-[#9277FF] rounded-tl-[20px] rounded-br-[20px]"></div>
+          <Image
+            src={logo}
+            alt="logo icon"
+            className="h-[40px] w-[40px] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-md:h-[30px] max-md:w-[30px] max-sm:h-[28px] max-sm:w-[28px]"
+          />
         </div>
 
         <div

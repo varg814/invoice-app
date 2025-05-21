@@ -13,19 +13,19 @@ const InvoiceButtons = () => {
       className={`flex items-center gap-2 ${BgColor} max-sm:justify-center`}
     >
       <Button
-        className={`h-[48px] w-[73px] flex items-center justify-center rounded-3xl ${BtnbgColor} ${textColor} font-bold cursor-pointer`}
+        className={`h-[48px] w-[73px] flex items-center justify-center rounded-3xl ${BtnbgColor} ${textColor} font-bold cursor-pointer hover:bg-[#DFE3FA]`}
         onClick={() => {}}
       >
         Edit
       </Button>
       <Button
-        className="h-[48px] w-[89px] flex items-center justify-center rounded-3xl bg-[#EC5757] text-white font-bold cursor-pointer"
+        className="h-[48px] w-[89px] flex items-center justify-center rounded-3xl bg-[#EC5757] text-white font-bold cursor-pointer hover:bg-[#FF9797]"
         onClick={() => {}}
       >
         Delete
       </Button>
       <Button
-        className="h-[48px] w-[131px] flex items-center justify-center rounded-3xl bg-[#7C5DFA] text-white font-bold cursor-pointer"
+        className="h-[48px] w-[131px] flex items-center justify-center rounded-3xl bg-[#7C5DFA] text-white font-bold cursor-pointer hover:bg-[#9277FF]"
         onClick={() => {}}
       >
         Mark as Paid

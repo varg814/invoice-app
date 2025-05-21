@@ -8,11 +8,14 @@ import Label from "@/components/atoms/label/Label";
 import arrowDown from "@/assets/icon-arrow-down.svg";
 import arrowUp from "@/assets/icon-arrow-up.svg";
 import check from "@/assets/icon-check.svg";
+import { FilterDropdownProps } from "@/types";
 
-const FilterDropdown = () => {
+const FilterDropdown = ({
+  selectedStatus,
+  setSelectedStatus,
+}: FilterDropdownProps) => {
   const isDarkMode = useStore((state) => state.isDarkMode);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [selectedStatus, setSelectedStatus] = useState<string | null>(null);
 
   const arrow = isFilterOpen ? arrowUp : arrowDown;
 
@@ -21,7 +24,7 @@ const FilterDropdown = () => {
   };
 
   const handleChange = (status: string) => {
-    setSelectedStatus((prev) => (prev === status ? null : status));
+    setSelectedStatus((prev : string | null) => (prev === status ? null : status));
   };
 
   const statuses = ["draft", "pending", "paid"];
@@ -48,6 +51,16 @@ const FilterDropdown = () => {
         className="flex gap-3 items-center font-bold cursor-pointer"
         onClick={toggleFilterDropdown}
       >
+        {selectedStatus ? (
+        <h1
+          className={`text-base ${
+            isDarkMode ? "text-white" : "text-[#0C0E16]"
+          }`}
+        >
+          {selectedStatus} invoices
+        </h1>
+        ) : (
+
         <h1
           className={`text-base ${
             isDarkMode ? "text-white" : "text-[#0C0E16]"
@@ -55,6 +68,8 @@ const FilterDropdown = () => {
         >
           Filter <span className="max-sm:hidden">by status</span>
         </h1>
+        )
+        }
         <Image
           src={arrow}
           alt="arrow"

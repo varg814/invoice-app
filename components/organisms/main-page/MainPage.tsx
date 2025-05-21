@@ -6,10 +6,12 @@ import FilterDropdown from "@/components/molecules/filter-dropdown/FilterDropdow
 import NewInvoice from "@/components/molecules/new-invoice/NewInvoice";
 import HeaderArticle from "@/components/molecules/header-article/HeaderArticle";
 import invoices from "@/assets/data.json";
+import { useState } from "react";
 
 const MainPage = () => {
   const isDarkMode = useStore((state) => state.isDarkMode);
   const bgColor = isDarkMode ? "bg-[#141625]" : "bg-[#F8F8FB]";
+  const [selectedStatus, setSelectedStatus] = useState<string | null>(null);
 
   return (
     <main
@@ -19,21 +21,28 @@ const MainPage = () => {
         <section className="flex justify-between">
           <HeaderArticle />
           <div className="flex items-center gap-10 max-sm:gap-5 relative">
-            <FilterDropdown />
+            <FilterDropdown
+              selectedStatus={selectedStatus}
+              setSelectedStatus={setSelectedStatus}
+            />
             <NewInvoice />
           </div>
         </section>
         <section className="flex flex-col gap-4">
-          {invoices.map((invoice) => (
-            <Invoice
-              key={invoice.id}
-              id={invoice.id}
-              paymentDue={invoice.paymentDue}
-              clientName={invoice.clientName}
-              price={invoice.total}
-              status={invoice.status}
-            />
-          ))}
+          {invoices
+            .filter(
+              (invoice) => !selectedStatus || invoice.status === selectedStatus
+            )
+            .map((invoice) => (
+              <Invoice
+                key={invoice.id}
+                id={invoice.id}
+                paymentDue={invoice.paymentDue}
+                clientName={invoice.clientName}
+                price={invoice.total}
+                status={invoice.status}
+              />
+            ))}
         </section>
       </div>
     </main>

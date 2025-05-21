@@ -51,3 +51,8 @@ export interface invoiceProps {
 export interface InvoiceStatusProps {
   status?: string;
 }
+
+export interface FilterDropdownProps {
+  selectedStatus: string | null;
+  setSelectedStatus: React.Dispatch<React.SetStateAction<string | null>>;
+}

@@ -39,7 +39,7 @@ const InvoicePage = () => {
       >
         <div className="w-full h-[calc(100vh-128px)] max-w-[730px] flex flex-col gap-6 overflow-scroll max-md:h-[calc(100vh-192px)] max-sm:h-[calc(100vh-200px)] scrollbar-hide">
           <Button
-            className={`self-start text-[15px] leading-[15px] font-bold flex gap-6 cursor-pointer ${
+            className={`self-start text-[15px] leading-[15px] font-bold flex gap-6 cursor-pointer hover:text-[#7E88C3] ${
               isDarkMode ? "text-white" : "text-[#0C0E16]"
             }`}
             onClick={() => route.push("/")}

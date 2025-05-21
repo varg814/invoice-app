@@ -15,7 +15,7 @@ const InvoiceInfo = () => {
   return (
     <div className="flex flex-col gap-6">
       <div className="w-full flex justify-between flex-wrap gap-8 max-sm:flex-col">
-        <article>
+        <article className="flex flex-col gap-2.5">
           <h1 className={`text-[15px] leading-6 font-bold ${h1Color}`}>
             #{invoice?.id}
           </h1>
