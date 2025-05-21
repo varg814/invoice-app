@@ -7,8 +7,10 @@ import logo from "@/assets/logo.svg";
 import moon from "@/assets/icon-moon.svg";
 import sun from "@/assets/icon-sun.svg";
 import avatar from "@/assets/image-avatar.jpg";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
+  const route = useRouter();
   const isDarkMode = useStore((state) => state.isDarkMode);
   const toggleTheme = useStore((state) => state.toggleTheme);
 
@@ -31,6 +33,7 @@ const Navbar = () => {
           className="flex items-center justify-center bg-[#7C5DFA] shrink-0 
         w-[103px] h-[103px] rounded-tr-[20px] rounded-br-[20px]
         max-md:w-[80px] max-md:h-[80px] max-sm:w-[72px] max-sm:h-[72px]"
+          onClick={() => route.push("/")}
         >
           <Image src={logo} alt="logo icon" className="h-[40px] w-[40px]" />
         </div>

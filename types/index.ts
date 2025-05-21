@@ -38,3 +38,16 @@ export interface OnDiscardProps {
   onDiscard: () => void;
   onClose: () => void;
 }
+
+export interface invoiceProps {
+  id: string;
+  paymentDue: string;
+  clientName: string;
+  price: number;
+  status: string;
+  key: string;
+}
+
+export interface InvoiceStatusProps {
+  status?: string;
+}

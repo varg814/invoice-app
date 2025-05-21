@@ -3,11 +3,16 @@ import InvoiceStatus from "@/components/atoms/invoice-status/InvoiceStatus";
 import useStore from "@/store/useStore";
 import InvoiceButtons from "../invoice-buttons/InvoiceButtons";
 import { useState, useEffect } from "react";
+import { useParams } from "next/navigation";
+import invoices from "@/assets/data.json";
 
 const InvoiceHeader = () => {
   const isDarkMode = useStore((state) => state.isDarkMode);
   const bgColor = isDarkMode ? "bg-[#1E2139]" : "bg-[#fff]";
   const textColor = isDarkMode ? "text-[#fff]" : "text-[#7E88C3]";
+  const params = useParams();
+  const id = params.id;
+  const invoice = invoices.find((inv) => inv.id === id);
 
   const useIsSmUp = () => {
     const [isSmUp, setIsSmUp] = useState(true);
@@ -33,7 +38,7 @@ const InvoiceHeader = () => {
           <p className={`text-[13px] leading-[15px] font-medium ${textColor}`}>
             Status
           </p>
-          <InvoiceStatus />
+          <InvoiceStatus status={invoice?.status} />
         </div>
         {isSmUp && <InvoiceButtons />}
       </div>

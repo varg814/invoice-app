@@ -1,29 +1,36 @@
 import React from "react";
 import useStore from "@/store/useStore";
+import { useParams } from "next/navigation";
+import invoices from "@/assets/data.json";
 
 const InvoiceInfo = () => {
   const isDarkMode = useStore((state) => state.isDarkMode);
   const h1Color = isDarkMode ? "text-white" : "text-[#0C0E16]";
   const pColor = isDarkMode ? "text-[#DFE3FA]" : "text-[#7E88C3]";
 
+  const params = useParams();
+  const id = params.id;
+  const invoice = invoices.find((inv) => inv.id === id);
+
   return (
     <div className="flex flex-col gap-6">
       <div className="w-full flex justify-between flex-wrap gap-8 max-sm:flex-col">
         <article>
           <h1 className={`text-[15px] leading-6 font-bold ${h1Color}`}>
-            #XM9141
+            #{invoice?.id}
           </h1>
           <p className={`text-[13px] leading-[15px] ${pColor}`}>
-            Graphic Design
+            {invoice?.description}
           </p>
         </article>
         <ul
           className={`text-right text-[13px] leading-[18px] ${pColor} max-sm:text-left`}
         >
-          <li>19 Union Terrace</li>
-          <li>London</li>
-          <li>E1 3EZ</li>
-          <li>United Kingdom</li>
+          
+          <li>{invoice?.senderAddress.street}</li>
+          <li>{invoice?.senderAddress.city}</li>
+          <li>{invoice?.senderAddress.postCode}</li>
+          <li>{invoice?.senderAddress.country}</li>
         </ul>
       </div>
 
@@ -34,7 +41,7 @@ const InvoiceInfo = () => {
               Invoice Date
             </p>
             <h1 className={`text-[15px] leading-5 font-bold ${h1Color}`}>
-              21 Aug 2021
+              {invoice?.createdAt}
             </h1>
           </article>
 
@@ -43,7 +50,7 @@ const InvoiceInfo = () => {
               Payment Due
             </p>
             <h1 className={`text-[15px] leading-5 font-bold ${h1Color}`}>
-              20 Sep 2021
+              {invoice?.paymentDue}
             </h1>
           </article>
         </div>
@@ -52,13 +59,15 @@ const InvoiceInfo = () => {
           <p className={`text-[13px] leading-[15px] ${pColor}`}>Bill To</p>
           <article className="flex flex-col gap-1.5">
             <h1 className={`text-[15px] leading-5 font-bold ${h1Color}`}>
-              Alex Grim
+              {invoice?.clientName}
             </h1>
-            <ul className={`text-[13px] leading-[18px] space-y-[1px] ${pColor}`}>
-              <li>84 Church Way</li>
-              <li>Bradford</li>
-              <li>BD1 9PB</li>
-              <li>United Kingdom</li>
+            <ul
+              className={`text-[13px] leading-[18px] space-y-[1px] ${pColor}`}
+            >
+              <li>{invoice?.clientAddress.street}</li>
+              <li>{invoice?.clientAddress.city}</li>
+              <li>{invoice?.clientAddress.postCode}</li>
+              <li>{invoice?.clientAddress.country}</li>
             </ul>
           </article>
         </div>
@@ -66,7 +75,7 @@ const InvoiceInfo = () => {
         <article className="flex flex-col gap-3">
           <p className={`text-[13px] leading-[15px] ${pColor}`}>Sent to</p>
           <h1 className={`text-[15px] leading-5 font-bold ${h1Color}`}>
-            alexgrim@mail.com
+            {invoice?.clientEmail}
           </h1>
         </article>
       </div>
