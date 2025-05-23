@@ -62,7 +62,7 @@ const Invoice = ({
         </h1>
 
         <div className="flex gap-[20px] max-sm:gap-0">
-          <InvoiceStatus status={status} />
+          <InvoiceStatus status={status} isDarkMode={isDarkMode}/>
           <Button
             className="cursor-pointer"
             onClick={() => {

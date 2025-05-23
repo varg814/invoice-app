@@ -15,6 +15,6 @@ export const invoiceFormSchema = yup.object().shape({
   description: yup.string().required("Description is required"),
   paymentTerms: yup.string().required("Payment terms is required"),
   itemName: yup.string().required("Item name is required"),
-  qty: yup.number().positive().integer().required("Quantity is required"),
+  qty: yup.number().positive().integer().required("required"),
   price: yup.number().positive().integer().required("Price is required"),
 });

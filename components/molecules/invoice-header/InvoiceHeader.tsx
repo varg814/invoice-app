@@ -38,7 +38,7 @@ const InvoiceHeader = () => {
           <p className={`text-[13px] leading-[15px] font-medium ${textColor}`}>
             Status
           </p>
-          <InvoiceStatus status={invoice?.status} />
+          <InvoiceStatus status={invoice?.status} isDarkMode={isDarkMode}/>
         </div>
         {isSmUp && <InvoiceButtons />}
       </div>

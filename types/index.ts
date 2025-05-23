@@ -50,6 +50,7 @@ export interface invoiceProps {
 
 export interface InvoiceStatusProps {
   status?: string;
+  isDarkMode: boolean
 }
 
 export interface FilterDropdownProps {

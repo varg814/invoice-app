@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import useStore from "@/store/useStore";
 import { invoiceFormSchema } from "@/schemas/invoiceFormSchema";
 import Input from "@/components/atoms/input/Input";
 import Image from "next/image";
 import trashIcon from "@/assets/icon-delete.svg";
-const ItemListSection = () => {
+const ItemListSection = ({ removeElement }: { removeElement: boolean }) => {
   const isDarkMode = useStore((state) => state.isDarkMode);
   const inputTextsColor = isDarkMode ? "text-[#DFE3FA]" : "text-[#7E88C3]";
   const insideInputTextColor = isDarkMode ? "text-[#FFFFFF]" : "text-[#0C0E16]";
@@ -34,10 +34,18 @@ const ItemListSection = () => {
     },
     validationSchema: invoiceFormSchema,
   });
+  const qty = values.qty;
+  const price = values.price;
+  const calcTotal = (qty: number, price: number) => {
+    return qty * price;
+  };
   return (
     <div className="items_div flex justify-between w-full gap-4 max-sm:gap-6 max-sm:flex-col">
-      <div className="items_name_div w-full max-w-[214px] flex flex-col items-start max-sm:max-w-full">
-        <p className={`text-sm font-medium ${inputTextsColor}`}>Item Name</p>
+      <div className={`items_name_div w-full max-w-[214px] flex flex-col max-sm:max-w-full `}>
+        {!removeElement && (
+          <p className={`text-sm font-medium ${inputTextsColor}`}>Item Name</p>
+        )}
+
         <Input
           name="itemName"
           id="itemName"
@@ -56,8 +64,11 @@ const ItemListSection = () => {
         )}
       </div>
       <div className="flex w-full justify-between">
-        <div className="quantity_div w-full max-w-[46px] flex flex-col items-start">
-          <p className={`text-sm font-medium ${inputTextsColor}`}>Qty.</p>
+        <div className={`quantity_div w-full max-w-[46px] flex flex-col`}>
+          {!removeElement && (
+            <p className={`text-sm font-medium ${inputTextsColor}`}>Qty.</p>
+          )}
+
           <Input
             name="qty"
             id="qty"
@@ -73,8 +84,11 @@ const ItemListSection = () => {
             <p className="text-red-500 text-[12px]">{errors.qty}</p>
           )}
         </div>
-        <div className="price_div w-full max-w-[100px] flex flex-col items-start">
-          <p className={`text-sm font-medium ${inputTextsColor}`}>Price</p>
+        <div className={`price_div w-full max-w-[100px] flex flex-col`}>
+          {!removeElement && (
+            <p className={`text-sm font-medium ${inputTextsColor}`}>Price</p>
+          )}
+
           <Input
             name="price"
             id="price"
@@ -92,9 +106,18 @@ const ItemListSection = () => {
             <p className="text-red-500 text-[12px]">{errors.price}</p>
           )}
         </div>
-        <div className="total_div w-full max-w-[50px] flex flex-col items-start gap-3">
-          <p className={`text-sm font-medium ${inputTextsColor}`}>Total</p>
-          <h1 className="mt-2 text-[#888EB0] text-[15px]"></h1>
+        <div
+          className={`total_div w-full max-w-[50px] flex flex-col ${
+            !removeElement ? "justify-start" : "justify-center"
+          } gap-3`}
+        >
+          {!removeElement && (
+            <p className={`text-sm font-medium ${inputTextsColor}`}>Total</p>
+          )}
+
+          <h1 className="mt-2 text-[#888EB0] text-[15px]">
+            {calcTotal(Number(qty), Number(price)).toFixed(2)}
+          </h1>
         </div>
         <Image
           src={trashIcon}
