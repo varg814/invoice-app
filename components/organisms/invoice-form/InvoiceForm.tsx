@@ -3,8 +3,6 @@ import { useState } from "react";
 import InvoiceFooter from "@/components/molecules/invoice-footer/InvoiceFooter";
 import useStore from "../../../store/useStore";
 import { useEffect } from "react";
-import { useFormik } from "formik";
-import { invoiceFormSchema } from "@/schemas/invoiceFormSchema";
 import BillFromSection from "@/components/molecules/bill-from-sectiom/BillFromSection";
 import BillToSection from "@/components/molecules/bill-to-section/BillToSection";
 import DateAndDescribtion from "@/components/molecules/date-describtion-section/DateAndDescribtion";
@@ -14,31 +12,6 @@ const InvoiceForm = ({ onClose }: { onClose: () => void }) => {
   const formBgColor = isDarkMode ? "bg-[#141625]" : "bg-[#fff]";
   const [showForm] = useState(false);
   const [components, setComponents] = useState<number[]>([]);
-  const { values, setFieldValue, errors } = useFormik({
-    initialValues: {
-      email: "",
-      senderAddress: "",
-      senderCity: "",
-      senderPostCode: "",
-      senderCountry: "",
-      clientName: "",
-      clientAddress: "",
-      clientCity: "",
-      clientPostCode: "",
-      clientCountry: "",
-      invoiceDate: new Date().toISOString(),
-      description: "",
-      itemName: "",
-      qty: "",
-      price: "",
-      total: "",
-      paymentTerms: "Net 30 Days",
-    },
-    onSubmit: (values) => {
-      console.log("Submitted!", values);
-    },
-    validationSchema: invoiceFormSchema,
-  });
 
   function useResponsiveHeight() {
     const [maxHeight, setMaxHeight] = useState("calc(100vh - 176px)");
