@@ -1,44 +1,84 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import InvoiceFooter from "@/components/molecules/invoice-footer/InvoiceFooter";
 import useStore from "../../../store/useStore";
-import { useEffect } from "react";
 import BillFromSection from "@/components/molecules/bill-from-sectiom/BillFromSection";
 import BillToSection from "@/components/molecules/bill-to-section/BillToSection";
 import DateAndDescribtion from "@/components/molecules/date-describtion-section/DateAndDescribtion";
 import ItemListSection from "@/components/molecules/items-list-section/ItemListSection";
+import { useFormik, FormikProps } from "formik";
+import { invoiceFormSchema } from "@/schemas/invoiceFormSchema";
+import { InvoiceFormValues } from "@/types";
+
 const InvoiceForm = ({ onClose }: { onClose: () => void }) => {
   const isDarkMode = useStore((state) => state.isDarkMode);
   const formBgColor = isDarkMode ? "bg-[#141625]" : "bg-[#fff]";
   const [showForm] = useState(false);
-  const [components, setComponents] = useState<number[]>([]);
 
   function useResponsiveHeight() {
     const [maxHeight, setMaxHeight] = useState("calc(100vh - 176px)");
-
     useEffect(() => {
       const updateHeight = () => {
         const isSmall = window.innerWidth <= 640;
         setMaxHeight(isSmall ? "calc(100vh - 120px)" : "calc(100vh - 176px)");
       };
-
       updateHeight();
       window.addEventListener("resize", updateHeight);
       return () => window.removeEventListener("resize", updateHeight);
     }, []);
-
     return maxHeight;
   }
 
   const maxHeight = useResponsiveHeight();
 
+  const formik: FormikProps<InvoiceFormValues> = useFormik<InvoiceFormValues>({
+    initialValues: {
+      email: "",
+      senderAddress: "",
+      senderCity: "",
+      senderPostCode: "",
+      senderCountry: "",
+      clientName: "",
+      clientAddress: "",
+      clientCity: "",
+      clientPostCode: "",
+      clientCountry: "",
+      invoiceDate: new Date().toISOString(),
+      description: "",
+      paymentTerms: "Net 30 Days",
+      items: [
+        {
+          itemName: "",
+          qty: "",
+          price: "",
+          total: "",
+        },
+      ],
+    },
+    onSubmit: (values) => {
+      console.log("Submitted!", values);
+    },
+    validationSchema: invoiceFormSchema,
+  });
+
+  useEffect(() => {
+    console.log(formik.values);
+  }, [formik.values]);
+
   const addNewItem = () => {
-    setComponents((prev) => [...prev, prev.length]);
+    const newItems = [...formik.values.items];
+    newItems.push({ itemName: "", qty: "", price: "", total: "" });
+    formik.setFieldValue("items", newItems);
+  };
+
+  const removeItem = (indexToRemove: number) => {
+    const updatedItems = formik.values.items.filter(
+      (_, i) => i !== indexToRemove
+    );
+    formik.setFieldValue("items", updatedItems);
   };
 
   return (
     <div className="fixed top-0 left-[103px] w-full h-full flex max-md:left-0 max-md:top-[80px] max-md:!mb-[120px] max-sm:w-full max-sm:h-screen max-sm:top-[72px] bg-black/50">
-      {/* {!showForm && ( */}
       {!showForm && (
         <div
           className={`relative w-[616px] ${formBgColor} shadow-lg h-full p-14 max-sm:w-full max-w-full max-sm:p-6`}
@@ -51,21 +91,29 @@ const InvoiceForm = ({ onClose }: { onClose: () => void }) => {
             >
               New Invoice
             </h1>
-            <BillFromSection />
-            <BillToSection />
-            <DateAndDescribtion />
+
+            <BillFromSection formik={formik} />
+            <BillToSection formik={formik} />
+            <DateAndDescribtion formik={formik} />
+
             <h1 className="text-[#777F98] text-[24px] leading-[32px] !mt-[35px] !mb-6">
               Item List
             </h1>
+
             <div className="flex flex-col gap-5">
-            <ItemListSection removeElement={false}/>
-              {components.map((index) => (
-                <ItemListSection key={index} removeElement={true}/>
+              {formik.values.items.map((_, index) => (
+                <ItemListSection
+                  key={index}
+                  formik={formik}
+                  index={index}
+                  removeElement={() => removeItem(index)}
+                />
               ))}
             </div>
+
             <button
-              className={`w-full  h-[48px] ${
-                isDarkMode ? "bg-[#252945]" : "bg-[#F9FAFE] "
+              className={`w-full h-[48px] ${
+                isDarkMode ? "bg-[#252945]" : "bg-[#F9FAFE]"
               } cursor-pointer rounded-[24px] !mt-[24px] !mb-5 text-[#7E88C3] max-md:!mb-[120px]`}
               onClick={addNewItem}
             >
@@ -74,6 +122,7 @@ const InvoiceForm = ({ onClose }: { onClose: () => void }) => {
           </div>
         </div>
       )}
+
       <InvoiceFooter onDiscard={onClose} onClose={onClose} />
     </div>
   );

@@ -2,13 +2,17 @@ import React from "react";
 import { useState } from "react";
 import useStore from "../../../store/useStore";
 import Input from "@/components/atoms/input/Input";
-import { useFormik } from "formik";
-import { invoiceFormSchema } from "@/schemas/invoiceFormSchema";
 import Image from "next/image";
 import calendarIcon from "@/assets/icon-calendar.svg";
 import PaymentTermsDropdown from "@/components/molecules/payment-terms-dropdown/PaymentTermsDropdown";
 import CalendarDemo from "@/components/atoms/calendar/CalendarDemo";
-const DateAndDescribtion = () => {
+import { DateAndDescribtionSectionProps } from "@/types";
+const DateAndDescribtion: React.FC<DateAndDescribtionSectionProps> = ({
+  formik,
+}) => {
+  const { values, handleChange, handleBlur, setFieldValue, errors, touched } =
+    formik;
+
   const isDarkMode = useStore((state) => state.isDarkMode);
   const inputTextsColor = isDarkMode ? "text-[#DFE3FA]" : "text-[#7E88C3]";
   const insideInputTextColor = isDarkMode ? "text-[#FFFFFF]" : "text-[#0C0E16]";
@@ -17,33 +21,6 @@ const DateAndDescribtion = () => {
   const toggleCalendar = () => {
     setIsHidden((prev) => !prev);
   };
-
-  const { values, handleBlur, handleChange, setFieldValue, errors, touched } =
-    useFormik({
-      initialValues: {
-        email: "",
-        senderAddress: "",
-        senderCity: "",
-        senderPostCode: "",
-        senderCountry: "",
-        clientName: "",
-        clientAddress: "",
-        clientCity: "",
-        clientPostCode: "",
-        clientCountry: "",
-        invoiceDate: new Date().toISOString(),
-        description: "",
-        itemName: "",
-        qty: "",
-        price: "",
-        total: "",
-        paymentTerms: "Net 30 Days",
-      },
-      onSubmit: (values) => {
-        console.log("Submitted!", values);
-      },
-      validationSchema: invoiceFormSchema,
-    });
 
   return (
     <div className="date_and_description_div w-full  !mt-[50px] gap-6">
