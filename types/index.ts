@@ -1,3 +1,4 @@
+import { FormikProps } from "formik";
 export interface StoreState {
   isDarkMode: boolean;
   toggleTheme: () => void;
@@ -50,10 +51,47 @@ export interface invoiceProps {
 
 export interface InvoiceStatusProps {
   status?: string;
-  isDarkMode: boolean
+  isDarkMode: boolean;
 }
 
 export interface FilterDropdownProps {
   selectedStatus: string | null;
   setSelectedStatus: React.Dispatch<React.SetStateAction<string | null>>;
+}
+export interface Item {
+  itemName: string;
+  qty: string | number;
+  price: string | number;
+  total: string | number;
+}
+
+export interface InvoiceFormValues {
+  email: string;
+  senderAddress: string;
+  senderCity: string;
+  senderPostCode: string;
+  senderCountry: string;
+  clientName: string;
+  clientAddress: string;
+  clientCity: string;
+  clientPostCode: string;
+  clientCountry: string;
+  invoiceDate: string;
+  description: string;
+  paymentTerms: string;
+  items: Item[];
+}
+export interface ItemsListSectionProps {
+  formik: FormikProps<InvoiceFormValues>;
+  index: number;
+  removeElement?: () => void;
+}
+export interface BillFromSectionProps {
+  formik: FormikProps<InvoiceFormValues>;
+}
+export interface DateAndDescribtionSectionProps {
+  formik: FormikProps<InvoiceFormValues>;
+}
+export interface BillToSectionProps {
+  formik: FormikProps<InvoiceFormValues>;
 }

@@ -1,39 +1,14 @@
 import React from "react";
 import useStore from "../../../store/useStore";
 import Input from "@/components/atoms/input/Input";
-import { useFormik } from "formik";
-import { invoiceFormSchema } from "@/schemas/invoiceFormSchema";
+import { BillFromSectionProps } from "@/types/index";
 
-const BillFromSection = () => {
+const BillFromSection: React.FC<BillFromSectionProps> = ({ formik }) => {
+  const { values, handleChange, handleBlur, errors, touched } = formik;
+
   const isDarkMode = useStore((state) => state.isDarkMode);
   const inputTextsColor = isDarkMode ? "text-[#DFE3FA]" : "text-[#7E88C3]";
   const insideInputTextColor = isDarkMode ? "text-[#FFFFFF]" : "text-[#0C0E16]";
-
-  const { values, handleBlur, handleChange, errors, touched } = useFormik({
-    initialValues: {
-      email: "",
-      senderAddress: "",
-      senderCity: "",
-      senderPostCode: "",
-      senderCountry: "",
-      clientName: "",
-      clientAddress: "",
-      clientCity: "",
-      clientPostCode: "",
-      clientCountry: "",
-      invoiceDate: new Date().toISOString(),
-      description: "",
-      itemName: "",
-      qty: "",
-      price: "",
-      total: "",
-      paymentTerms: "Net 30 Days",
-    },
-    onSubmit: (values) => {
-      console.log("Submitted!", values);
-    },
-    validationSchema: invoiceFormSchema,
-  });
 
   return (
     <div className="bill_form flex flex-col gap-4 !mt-[30px] ">
