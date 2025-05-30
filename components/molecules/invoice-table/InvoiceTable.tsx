@@ -57,7 +57,7 @@ const InvoiceTable = () => {
           <p className={`${pColor} text-[13px] leading-[18px] max-sm:hidden`}>
             Item Name
           </p>
-          {invoice?.items.map((item) => (
+          {invoice?.items?.map((item) => (
             <article className="sm:flex-col gap-2" key={item.name}>
               <h1
                 className={`${
@@ -84,7 +84,7 @@ const InvoiceTable = () => {
           <p className={`${pColor} text-[13px] leading-[18px] max-sm:hidden`}>
             QTY.
           </p>
-          {invoice?.items.map((item) => (
+          {invoice?.items?.map((item) => (
             <h1
               className={`${
                 isDarkMode ? "text-[#DFE3FA]" : "text-[#7E88C3]"
@@ -97,7 +97,7 @@ const InvoiceTable = () => {
         </div>
         <div className="flex flex-col items-end gap-8 max-sm:hidden">
           <p className={`${pColor} text-[13px] leading-[18px]`}>Price</p>
-          {invoice?.items.map((item) => (
+          {invoice?.items?.map((item) => (
             <h1
               className={`${
                 isDarkMode ? "text-[#DFE3FA]" : "text-[#7E88C3]"
@@ -116,7 +116,7 @@ const InvoiceTable = () => {
           <p className={`${pColor} text-[13px] leading-[18px] max-sm:hidden`}>
             Total
           </p>
-          {invoice?.items.map((item) => (
+          {invoice?.items?.map((item) => (
             <h1
               className={`${
                 isDarkMode ? "text-[#FFFFFF]" : "text-[#0C0E16]"
@@ -138,7 +138,7 @@ const InvoiceTable = () => {
         <h1 className="text-sm font-medium">Amount Due</h1>
         <h1 className="text-2xl">
           £{" "}
-          {invoice?.total.toLocaleString("en-UK", {
+          {invoice?.total?.toLocaleString("en-UK", {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2,
           })}
