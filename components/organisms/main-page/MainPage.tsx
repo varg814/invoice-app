@@ -14,55 +14,53 @@ const MainPage = () => {
   const [selectedStatus, setSelectedStatus] = useState<string | null>(null);
   const isDarkMode = useStore((state) => state.isDarkMode);
   const bgColor = isDarkMode ? "bg-[#141625]" : "bg-[#F8F8FB]";
-
-  const [user, setUser] = useState<any>(null)
-  const router = useRouter()
-
-  const token = getCookie('accessToken')
-
-  if(!token) {
-    router.push('/auth/sign-in')
-    return
-  }
-  
-
-   const getUser = async () => {
-    const resp = await fetch('http://localhost:4000/auth/current-user',{
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    })
-    const data = await resp.json()
-
-    if(resp.status === 200){
-      setUser(data)
-    }else{
-      deleteCookie('accessToken')
-      router.push('/auth/sign-in')
-    }
-  }
-
-  const getInvoices = async () => {
-    const resp = await fetch("http://localhost:4000/posts", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const data = await resp.json();
-
-    if (resp.status === 200) {
-      setInvoices(data);
-    }
-  };
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
-    getUser();
-    getInvoices();
-  }, []);
+    const token = getCookie("accessToken");
+    if (!token) {
+      router.push("/auth/sign-in");
+      return;
+    }
 
-  if(!user){
-    router.push('/auth/sign-in')
-    return
+    const fetchData = async () => {
+      try {
+        const respUser = await fetch("http://localhost:4000/auth/current-user", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (respUser.status !== 200) {
+          deleteCookie("accessToken");
+          router.push("/auth/sign-in");
+          return;
+        }
+
+        const respInvoices = await fetch("http://localhost:4000/posts", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (respInvoices.status === 200) {
+          const invoicesData = await respInvoices.json();
+          setInvoices(invoicesData);
+        } else {
+          setInvoices([]);
+        }
+      } catch (error) {
+        deleteCookie("accessToken");
+        router.push("/auth/sign-in");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [router]);
+
+  if (loading) {
+    return (
+      <main className={`${bgColor} flex justify-center items-center h-screen`}>
+        <p>Loading...</p>
+      </main>
+    );
   }
 
   return (
@@ -82,9 +80,7 @@ const MainPage = () => {
         </section>
         <section className="flex flex-col gap-4">
           {invoices
-            .filter(
-              (invoice) => !selectedStatus || invoice.status === selectedStatus
-            )
+            .filter((invoice) => !selectedStatus || invoice.status === selectedStatus)
             .map((invoice) => (
               <Invoice
                 key={invoice.id}
