@@ -26,9 +26,12 @@ const MainPage = () => {
 
     const fetchData = async () => {
       try {
-        const respUser = await fetch("http://localhost:4000/auth/current-user", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const respUser = await fetch(
+          "http://localhost:4000/auth/current-user",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         if (respUser.status !== 200) {
           deleteCookie("accessToken");
           router.push("/auth/sign-in");
@@ -44,9 +47,10 @@ const MainPage = () => {
         } else {
           setInvoices([]);
         }
-      } catch (error) {
+      } catch (err) {
         deleteCookie("accessToken");
         router.push("/auth/sign-in");
+        console.log(err);
       } finally {
         setLoading(false);
       }
@@ -80,7 +84,9 @@ const MainPage = () => {
         </section>
         <section className="flex flex-col gap-4">
           {invoices
-            .filter((invoice) => !selectedStatus || invoice.status === selectedStatus)
+            .filter(
+              (invoice) => !selectedStatus || invoice.status === selectedStatus
+            )
             .map((invoice) => (
               <Invoice
                 key={invoice.id}
