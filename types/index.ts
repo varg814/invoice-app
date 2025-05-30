@@ -52,7 +52,7 @@ export interface InvoiceProps {
   key?: string;
   description?: string;
   senderAddress?: {
-    street?: string
+    street?: string;
     city?: string;
     postCode?: string;
     country?: string;
@@ -65,7 +65,7 @@ export interface InvoiceProps {
     country?: string;
   };
   clientEmail?: string;
-  items?: Item[]
+  items?: Item[];
 }
 
 export interface InvoiceStatusProps {
@@ -82,8 +82,8 @@ export interface Item {
   qty: string | number;
   price: string | number;
   total: string | number;
-  name: string;
-  quantity: number;
+  // name: string;
+  // quantity: number;
 }
 
 export interface InvoiceFormValues {
