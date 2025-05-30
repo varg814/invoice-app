@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import useStore from "@/store/useStore";
-import invoices from "@/assets/data.json";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import { InvoiceProps } from "@/types";
 
 const InvoiceTable = () => {
   const isDarkMode = useStore((state) => state.isDarkMode);
@@ -11,9 +11,44 @@ const InvoiceTable = () => {
     ? "text-[#DFE3FA] font-medium"
     : "text-[#7E88C3] font-medium";
 
+  const router = useRouter();
   const params = useParams();
   const id = params.id;
-  const invoice = invoices.find((inv) => inv.id === id);
+
+  const [invoice, setInvoice] = useState<InvoiceProps | null>(null);
+  const accessToken = useStore((state) => state.accessToken);
+
+  useEffect(() => {
+    const fetchInvoice = async () => {
+      if (!accessToken) {
+        router.push("/auth/sign-in");
+        return;
+      }
+
+      try {
+        const response = await fetch(`http://localhost:4000/invoices/${id}`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+
+        if (response.status === 200) {
+          const data = await response.json();
+          setInvoice(data);
+        } else {
+          console.error("Failed to fetch invoice");
+        }
+      } catch (error) {
+        console.error("Error fetching invoice:", error);
+      }
+    };
+
+    fetchInvoice();
+  }, [accessToken, id, router]);
+
+  if (!invoice) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div className="rounded-lg overflow-hidden font-bold">

@@ -1,18 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useParams, useRouter } from "next/navigation";
 import InvoiceStatus from "@/components/atoms/invoice-status/InvoiceStatus";
-import useStore from "@/store/useStore";
 import InvoiceButtons from "../invoice-buttons/InvoiceButtons";
-import { useState, useEffect } from "react";
-import { useParams } from "next/navigation";
-import invoices from "@/assets/data.json";
+import useStore from "@/store/useStore";
+import { InvoiceProps } from "@/types";
 
 const InvoiceHeader = () => {
   const isDarkMode = useStore((state) => state.isDarkMode);
+  const accessToken = useStore((state) => state.accessToken);
   const bgColor = isDarkMode ? "bg-[#1E2139]" : "bg-[#fff]";
   const textColor = isDarkMode ? "text-[#fff]" : "text-[#7E88C3]";
+  const router = useRouter();
   const params = useParams();
   const id = params.id;
-  const invoice = invoices.find((inv) => inv.id === id);
+
+  const [invoice, setInvoice] = useState<InvoiceProps | null>(null);
 
   const useIsSmUp = () => {
     const [isSmUp, setIsSmUp] = useState(true);
@@ -26,8 +28,39 @@ const InvoiceHeader = () => {
 
     return isSmUp;
   };
-
   const isSmUp = useIsSmUp();
+
+  useEffect(() => {
+    const fetchInvoice = async () => {
+      if (!accessToken) {
+        router.push("/auth/sign-in");
+        return;
+      }
+
+      try {
+        const response = await fetch(`http://localhost:4000/invoices/${id}`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+
+        if (response.status === 200) {
+          const data = await response.json();
+          setInvoice(data);
+        } else {
+          console.error("Failed to fetch invoice");
+        }
+      } catch (error) {
+        console.error("Error fetching invoice:", error);
+      }
+    };
+
+    fetchInvoice();
+  }, [accessToken, id, router]);
+
+  if (!invoice) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <section
@@ -38,7 +71,7 @@ const InvoiceHeader = () => {
           <p className={`text-[13px] leading-[15px] font-medium ${textColor}`}>
             Status
           </p>
-          <InvoiceStatus status={invoice?.status} isDarkMode={isDarkMode}/>
+          <InvoiceStatus status={invoice?.status} isDarkMode={isDarkMode} />
         </div>
         {isSmUp && <InvoiceButtons />}
       </div>

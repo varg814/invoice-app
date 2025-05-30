@@ -2,6 +2,9 @@ import { FormikProps } from "formik";
 export interface StoreState {
   isDarkMode: boolean;
   toggleTheme: () => void;
+
+  accessToken: string | null;
+  setAccessToken: (token: string | null) => void;
 }
 
 export interface ButtonProps {
@@ -40,13 +43,29 @@ export interface OnDiscardProps {
   onClose: () => void;
 }
 
-export interface invoiceProps {
-  id: string;
-  paymentDue: string;
-  clientName: string;
-  price: number;
-  status: string;
-  key: string;
+export interface InvoiceProps {
+  id?: string;
+  paymentDue?: string;
+  clientName?: string;
+  total?: number;
+  status?: string;
+  key?: string;
+  description?: string;
+  senderAddress?: {
+    street?: string
+    city?: string;
+    postCode?: string;
+    country?: string;
+  };
+  createdAt?: string;
+  clientAddress?: {
+    street?: string;
+    city?: string;
+    postCode?: string;
+    country?: string;
+  };
+  clientEmail?: string;
+  items?: Item[]
 }
 
 export interface InvoiceStatusProps {
@@ -63,6 +82,8 @@ export interface Item {
   qty: string | number;
   price: string | number;
   total: string | number;
+  name: string;
+  quantity: number;
 }
 
 export interface InvoiceFormValues {
@@ -95,4 +116,10 @@ export interface DateAndDescribtionSectionProps {
 }
 export interface BillToSectionProps {
   formik: FormikProps<InvoiceFormValues>;
+}
+
+export interface userType {
+  id: string;
+  name: string;
+  email: string;
 }

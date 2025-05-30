@@ -8,6 +8,7 @@ const itemSchema = new mongoose.Schema({
 });
 
 const invoiceSchema = new mongoose.Schema({
+ id: { type: String, required: true, unique: true },
   email: { type: String, required: true },
   senderAddress: { type: String, required: true },
   senderCity: { type: String, required: true },
@@ -24,5 +25,7 @@ const invoiceSchema = new mongoose.Schema({
   items: { type: [itemSchema], required: true },
   author: { type: mongoose.Schema.Types.ObjectId, ref: "user", required: true }
 });
+
+
 
 module.exports = mongoose.model("invoice", invoiceSchema);

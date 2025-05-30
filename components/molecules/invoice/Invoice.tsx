@@ -4,16 +4,16 @@ import Image from "next/image";
 import buttonArrow from "@/assets/icon-arrow-right.svg";
 import useStore from "@/store/useStore";
 import InvoiceStatus from "@/components/atoms/invoice-status/InvoiceStatus";
-import { invoiceProps } from "@/types";
+import { InvoiceProps } from "@/types";
 import { useRouter } from "next/navigation";
 
 const Invoice = ({
   id,
   paymentDue,
   clientName,
-  price,
+  total,
   status,
-}: invoiceProps) => {
+}: InvoiceProps) => {
   const route = useRouter();
   const isDarkMode = useStore((state) => state.isDarkMode);
 
@@ -55,7 +55,7 @@ const Invoice = ({
         <h1 className={`text-[15px] font-bold ${primaryText}`}>
           {" "}
           £{" "}
-          {price.toLocaleString("en-UK", {
+          {total?.toLocaleString("en-UK", {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2,
           })}
