@@ -6,69 +6,64 @@ import FilterDropdown from "@/components/molecules/filter-dropdown/FilterDropdow
 import NewInvoice from "@/components/molecules/new-invoice/NewInvoice";
 import HeaderArticle from "@/components/molecules/header-article/HeaderArticle";
 import { useRouter } from "next/navigation";
-import { deleteCookie } from "cookies-next";
+import { deleteCookie, getCookie } from "cookies-next";
 import { InvoiceProps } from "@/types";
 
 const MainPage = () => {
   const [invoices, setInvoices] = useState<InvoiceProps[]>([]);
   const [selectedStatus, setSelectedStatus] = useState<string | null>(null);
-  const [tokenChecked, setTokenChecked] = useState(false);
-
-  const accessToken = useStore((state) => state.accessToken);
   const isDarkMode = useStore((state) => state.isDarkMode);
   const bgColor = isDarkMode ? "bg-[#141625]" : "bg-[#F8F8FB]";
-  const router = useRouter();
+
+  const [user, setUser] = useState<any>(null)
+  const router = useRouter()
+
+  const token = getCookie('accessToken')
+
+  if(!token) {
+    router.push('/auth/sign-in')
+    return
+  }
+  
+
+   const getUser = async () => {
+    const resp = await fetch('http://localhost:4000/auth/current-user',{
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    const data = await resp.json()
+
+    if(resp.status === 200){
+      setUser(data)
+    }else{
+      deleteCookie('accessToken')
+      router.push('/auth/sign-in')
+    }
+  }
+
+  const getInvoices = async () => {
+    const resp = await fetch("http://localhost:4000/posts", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await resp.json();
+
+    if (resp.status === 200) {
+      setInvoices(data);
+    }
+  };
 
   useEffect(() => {
-    if (!accessToken) {
-      router.push("/auth/sign-in");
-      return;
-    }
+    getUser();
+    getInvoices();
+  }, []);
 
-    const fetchData = async () => {
-      try {
-        const userResp = await fetch(
-          "http://localhost:4000/auth/current-user",
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          }
-        );
-
-        if (userResp.status !== 200) {
-          deleteCookie("accessToken");
-          router.push("/auth/sign-in");
-          return;
-        }
-        await userResp.json();
-
-        const invoiceResp = await fetch("http://localhost:4000/invoices", {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
-
-        if (invoiceResp.status === 200) {
-          const invoiceData = await invoiceResp.json();
-          setInvoices(invoiceData);
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setTokenChecked(true);
-      }
-    };
-
-    fetchData();
-  }, [accessToken, router]);
-
-  if (!tokenChecked)
-    return (
-      <main
-        className={`w-full max-md:h-[calc(100vh-80px)] max-sm:h-[calc(100vh-72px)] ${bgColor} pt-20 flex justify-center px-12 max-sm:px-6`}
-      ></main>
-    );
+  if(!user){
+    router.push('/auth/sign-in')
+    return
+  }
 
   return (
     <main
