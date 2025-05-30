@@ -7,10 +7,9 @@ import NewInvoice from "@/components/molecules/new-invoice/NewInvoice";
 import HeaderArticle from "@/components/molecules/header-article/HeaderArticle";
 import { useRouter } from "next/navigation";
 import { deleteCookie } from "cookies-next";
-import { InvoiceProps, userType } from "@/types";
+import { InvoiceProps } from "@/types";
 
 const MainPage = () => {
-  const [user, setUser] = useState<userType | null>(null);
   const [invoices, setInvoices] = useState<InvoiceProps[]>([]);
   const [selectedStatus, setSelectedStatus] = useState<string | null>(null);
   const [tokenChecked, setTokenChecked] = useState(false);
@@ -42,9 +41,7 @@ const MainPage = () => {
           router.push("/auth/sign-in");
           return;
         }
-
-        const userData = await userResp.json();
-        setUser(userData);
+        await userResp.json();
 
         const invoiceResp = await fetch("http://localhost:4000/invoices", {
           headers: {

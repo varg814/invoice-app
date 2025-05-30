@@ -68,7 +68,7 @@ export default function SignIn() {
           value={password}
         />
         <button>Sign In</button>
-        <Link href={"/auth/sign-up"}>Don't have an account? Register</Link>
+        <Link href={"/auth/sign-up"}>Don&apos;t have an account? Register</Link>
       </form>
     </div>
   );
