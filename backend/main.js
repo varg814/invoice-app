@@ -11,7 +11,7 @@ connectToDb();
 
 app.use(express.json());
 app.use(cors({
-  origin: "https://invoice-app-one-black.vercel.app/",
+  origin: "https://invoice-app-one-black.vercel.app",
   credentials: true,
 }));
 
@@ -20,6 +20,13 @@ app.use("/auth", authRouter);
 app.use("/users", isAuth, userRouter);
 app.use("/invoices", isAuth, invoiceRouter);
 
-app.listen(4000, () => {
-  console.log("server running on http://localhost:4000");
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
+
+app.get("/", (req, res) => {
+  res.send("Server is alive");
+});
+
+
