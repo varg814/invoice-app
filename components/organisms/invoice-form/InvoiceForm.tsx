@@ -47,10 +47,10 @@ const InvoiceForm = ({ onClose }: { onClose: () => void }) => {
       paymentTerms: "Net 30 Days",
       items: [
         {
-          itemName: "",
-          qty: "",
-          price: "",
-          total: "",
+          name: "",
+          quantity: 0,
+          price: 0,
+          total: 0,
         },
       ],
     },
@@ -66,7 +66,7 @@ const InvoiceForm = ({ onClose }: { onClose: () => void }) => {
 
   const addNewItem = () => {
     const newItems = [...formik.values.items];
-    newItems.push({ itemName: "", qty: "", price: "", total: "" });
+    newItems.push({ name: "", quantity: 0, price: 0, total: 0 });
     formik.setFieldValue("items", newItems);
   };
 
