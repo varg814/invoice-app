@@ -8,23 +8,38 @@ const itemSchema = new mongoose.Schema({
 });
 
 const invoiceSchema = new mongoose.Schema({
- id: { type: String, required: true, unique: true },
+  id: { type: String, required: true, unique: true },
   email: { type: String, required: true },
-  senderAddress: { type: String, required: true },
-  senderCity: { type: String, required: true },
-  senderPostCode: { type: String, required: true },
-  senderCountry: { type: String, required: true },
+
+  senderAddress: {
+    street: { type: String, required: true },
+    city: { type: String, required: true },
+    postCode: { type: String, required: true },
+    country: { type: String, required: true }
+  },
+
   clientName: { type: String, required: true },
-  clientAddress: { type: String, required: true },
-  clientCity: { type: String, required: true },
-  clientPostCode: { type: String, required: true },
-  clientCountry: { type: String, required: true },
+  clientEmail: { type: String, required: true },
+
+  clientAddress: {
+    street: { type: String, required: true },
+    city: { type: String, required: true },
+    postCode: { type: String, required: true },
+    country: { type: String, required: true }
+  },
+
   invoiceDate: { type: String, required: true },
   description: { type: String, required: true },
   paymentTerms: { type: String, required: true },
+  paymentDue: { type: String },
+  total: { type: Number }, 
+  status: { type: String }, 
+
   items: { type: [itemSchema], required: true },
+
   author: { type: mongoose.Schema.Types.ObjectId, ref: "user", required: true }
 });
+
 
 
 

@@ -22,10 +22,13 @@ const ItemListSection: React.FC<ItemsListSectionProps> = ({
     updatedItems[index] = {
       ...updatedItems[index],
       [field]: value,
-      total: (
-        Number(field === "qty" ? value : updatedItems[index].qty || 0) *
-        Number(field === "price" ? value : updatedItems[index].price || 0)
-      ).toFixed(2),
+      total: Number(
+        (
+          Number(
+            field === "quantity" ? value : updatedItems[index].quantity || 0
+          ) * Number(field === "price" ? value : updatedItems[index].price || 0)
+        ).toFixed(2)
+      ),
     };
     formik.setFieldValue("items", updatedItems);
   };
@@ -36,8 +39,8 @@ const ItemListSection: React.FC<ItemsListSectionProps> = ({
         <p className={`text-sm font-medium ${inputTextsColor}`}>Item Name</p>
         <Input
           type="text"
-          value={item.itemName}
-          onChange={(e) => handleChange("itemName", e.target.value)}
+          value={item.name}
+          onChange={(e) => handleChange("name", e.target.value)}
           onBlur={formik.handleBlur}
           className={`bg-transparent ${insideInputTextColor} border p-2 rounded-lg w-full`}
         />
@@ -48,8 +51,8 @@ const ItemListSection: React.FC<ItemsListSectionProps> = ({
           <p className={`text-sm font-medium ${inputTextsColor}`}>Qty.</p>
           <Input
             type="number"
-            value={item.qty}
-            onChange={(e) => handleChange("qty", e.target.value)}
+            value={item.quantity}
+            onChange={(e) => handleChange("quantity", e.target.value)}
             onBlur={formik.handleBlur}
             className={`bg-transparent ${insideInputTextColor} border p-2 rounded-lg w-full`}
           />

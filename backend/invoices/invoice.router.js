@@ -40,7 +40,10 @@ invoiceRouter.post("/", async (req, res) => {
       invoiceDate,
       description,
       paymentTerms,
+      paymentDue,  
+      total,       
       items,
+      status,
       // author,
     } = req.body;
 
@@ -58,6 +61,8 @@ invoiceRouter.post("/", async (req, res) => {
       !invoiceDate ||
       !description ||
       !paymentTerms ||
+      !paymentDue ||       
+      !total ||
       !Array.isArray(items) 
       // !author
     ) {
@@ -72,18 +77,30 @@ invoiceRouter.post("/", async (req, res) => {
       senderPostCode,
       senderCountry,
       clientName,
-      clientAddress,
-      clientCity,
-      clientPostCode,
-      clientCountry,
-      invoiceDate,
+      clientEmail: email,
+      createdAt: invoiceDate,
+      paymentDue,
       description,
       paymentTerms,
       items,
+      total,
+      status,
+      senderAddress: {
+        street: senderAddress,
+        city: senderCity,
+        postCode: senderPostCode,
+        country: senderCountry,
+      },
+      clientAddress: {
+        street: clientAddress,
+        city: clientCity,
+        postCode: clientPostCode,
+        country: clientCountry,
+      },
       author: req.userId,
     });
 
-    const user = await userModel.findByIdAndUpdate(req.userId, {
+    await userModel.findByIdAndUpdate(req.userId, {
       $push: { invoices: invoice._id },
     });
 

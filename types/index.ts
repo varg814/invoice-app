@@ -79,13 +79,12 @@ export interface FilterDropdownProps {
   setSelectedStatus: React.Dispatch<React.SetStateAction<string | null>>;
 }
 export interface Item {
-  itemName: string;
-  qty: string | number;
-  price: string | number;
-  total: string | number;
-  // name: string;
-  // quantity: number;
+  name: string;
+  quantity: number;
+  price: number;
+  total: number;
 }
+
 
 export interface InvoiceFormValues {
   email: string;

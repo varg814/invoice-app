@@ -58,21 +58,21 @@ const InvoiceTable = () => {
             Item Name
           </p>
           {invoice?.items?.map((item, index) => (
-            <article className="sm:flex-col gap-2" key={item.itemName || index}>
+            <article className="sm:flex-col gap-2" key={item.name || index}>
               <h1
                 className={`${
                   isDarkMode ? "text-[#FFFFFF]" : "text-[#0C0E16]"
                 } text-[15px] leading-[15px]`}
               >
-                {item.itemName || index}
+                {item.name || index}
               </h1>{" "}
               <span
                 className={`${
                   isDarkMode ? "text-[#888EB0]" : "text-[#7E88C3]"
                 } hidden max-sm:block`}
               >
-                {item.qty} x £{" "}
-                {item.price.toLocaleString("en-UK", {
+                {item.quantity} x £{" "}
+                {item.price.toLocaleString("en-GB", {
                   minimumFractionDigits: 2,
                   maximumFractionDigits: 2,
                 })}
@@ -89,9 +89,9 @@ const InvoiceTable = () => {
               className={`${
                 isDarkMode ? "text-[#DFE3FA]" : "text-[#7E88C3]"
               } text-[13px] leading-[15px]`}
-              key={item.itemName || index}
+              key={item.name || index}
             >
-              {item.qty}
+              {item.quantity}
             </h1>
           ))}
         </div>
@@ -102,10 +102,10 @@ const InvoiceTable = () => {
               className={`${
                 isDarkMode ? "text-[#DFE3FA]" : "text-[#7E88C3]"
               } text-[15px] leading-[15px]`}
-              key={item.itemName || index}
+              key={item.name || index}
             >
               £{" "}
-              {item.price.toLocaleString("en-UK", {
+              {item.price.toLocaleString("en-GB", {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
               })}
@@ -121,10 +121,10 @@ const InvoiceTable = () => {
               className={`${
                 isDarkMode ? "text-[#FFFFFF]" : "text-[#0C0E16]"
               } text-[15px] leading-[15px]`}
-              key={item.itemName || index}
+              key={item.name || index}
             >
               £{" "}
-              {item.total.toLocaleString("en-UK", {
+              {item.total.toLocaleString("en-GB", {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
               })}
@@ -138,7 +138,7 @@ const InvoiceTable = () => {
         <h1 className="text-sm font-medium">Amount Due</h1>
         <h1 className="text-2xl">
           £{" "}
-          {invoice?.total?.toLocaleString("en-UK", {
+          {invoice?.total?.toLocaleString("en-GB", {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2,
           })}
