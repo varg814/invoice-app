@@ -40,11 +40,7 @@ invoiceRouter.post("/", async (req, res) => {
       invoiceDate,
       description,
       paymentTerms,
-      paymentDue,  
-      total,       
       items,
-      status,
-      // author,
     } = req.body;
 
     if (
@@ -61,54 +57,56 @@ invoiceRouter.post("/", async (req, res) => {
       !invoiceDate ||
       !description ||
       !paymentTerms ||
-      !paymentDue ||       
-      !total ||
-      !Array.isArray(items) 
-      // !author
+      !Array.isArray(items) ||
+      items.length === 0
     ) {
       return res.status(400).json({ error: "Missing required fields." });
     }
-    const id = generateInvoiceId()
+
+    const id = generateInvoiceId();
+
+    const days = parseInt(paymentTerms.match(/\d+/)[0], 10);
+    const paymentDueDate = new Date(invoiceDate);
+    paymentDueDate.setDate(paymentDueDate.getDate() + days);
+
+    const authorId = req.userId; 
+    if (!authorId) {
+      return res.status(401).json({ error: "User is not authenticated." });
+    }
+
     const invoice = await invoiceModel.create({
       id,
       email,
-      senderAddress,
-      senderCity,
-      senderPostCode,
-      senderCountry,
-      clientName,
-      clientEmail: email,
-      createdAt: invoiceDate,
-      paymentDue,
-      description,
-      paymentTerms,
-      items,
-      total,
-      status,
       senderAddress: {
         street: senderAddress,
         city: senderCity,
         postCode: senderPostCode,
         country: senderCountry,
       },
+      clientName,
+      clientEmail: email,
       clientAddress: {
         street: clientAddress,
         city: clientCity,
         postCode: clientPostCode,
         country: clientCountry,
       },
-      author: req.userId,
-    });
-
-    await userModel.findByIdAndUpdate(req.userId, {
-      $push: { invoices: invoice._id },
+      invoiceDate,
+      description,
+      paymentTerms,
+      paymentDue: paymentDueDate.toISOString().split("T")[0],
+      items,
+      total: items.reduce((sum, item) => sum + item.total, 0), 
+      status: "Pending", 
+      author: authorId,
     });
 
     res.status(201).json(invoice);
   } catch (error) {
-    res
-      .status(500)
-      .json({ error: "Failed to create invoice.", details: error.message });
+    res.status(500).json({
+      error: "Failed to create invoice.",
+      details: error.message,
+    });
   }
 });
 

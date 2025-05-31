@@ -8,6 +8,7 @@ import ItemListSection from "@/components/molecules/items-list-section/ItemListS
 import { useFormik, FormikProps } from "formik";
 import { invoiceFormSchema } from "@/schemas/invoiceFormSchema";
 import { InvoiceFormValues } from "@/types";
+import { getCookie } from "cookies-next";
 
 const InvoiceForm = ({ onClose }: { onClose: () => void }) => {
   const isDarkMode = useStore((state) => state.isDarkMode);
@@ -78,6 +79,8 @@ const InvoiceForm = ({ onClose }: { onClose: () => void }) => {
   };
 
   const handleSubmit = async () => {
+    const token = getCookie("accessToken");
+    console.log("token", token);
     const cleanedItems = formik.values.items.map((item) => ({
       itemName: item.name.trim(),
       qty: Number(item.quantity),
@@ -93,6 +96,7 @@ const InvoiceForm = ({ onClose }: { onClose: () => void }) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(payload),
     });
