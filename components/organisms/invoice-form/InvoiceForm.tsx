@@ -8,7 +8,6 @@ import ItemListSection from "@/components/molecules/items-list-section/ItemListS
 import { useFormik, FormikProps } from "formik";
 import { invoiceFormSchema } from "@/schemas/invoiceFormSchema";
 import { InvoiceFormValues } from "@/types";
-import { access } from "fs";
 
 const InvoiceForm = ({ onClose }: { onClose: () => void }) => {
   const isDarkMode = useStore((state) => state.isDarkMode);
@@ -80,8 +79,8 @@ const InvoiceForm = ({ onClose }: { onClose: () => void }) => {
 
   const handleSubmit = async () => {
     const cleanedItems = formik.values.items.map((item) => ({
-      itemName: item.itemName.trim(),
-      qty: Number(item.qty),
+      itemName: item.name.trim(),
+      qty: Number(item.quantity),
       price: Number(item.price),
       total: Number(item.total),
     }));
