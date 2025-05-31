@@ -41,6 +41,7 @@ export interface CalendarDemoProps {
 export interface OnDiscardProps {
   onDiscard: () => void;
   onClose: () => void;
+  onSubmit: () => void;
 }
 
 export interface InvoiceProps {

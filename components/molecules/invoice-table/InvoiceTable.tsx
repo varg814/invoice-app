@@ -57,15 +57,15 @@ const InvoiceTable = () => {
           <p className={`${pColor} text-[13px] leading-[18px] max-sm:hidden`}>
             Item Name
           </p>
-          {invoice?.items?.map((item) => (
-            <article className="sm:flex-col gap-2" key={item.name}>
+          {invoice?.items?.map((item, index) => (
+            <article className="sm:flex-col gap-2" key={item.name || index}>
               <h1
                 className={`${
                   isDarkMode ? "text-[#FFFFFF]" : "text-[#0C0E16]"
                 } text-[15px] leading-[15px]`}
               >
-                {item.name}
-              </h1>
+                {item.name || index}
+              </h1>{" "}
               <span
                 className={`${
                   isDarkMode ? "text-[#888EB0]" : "text-[#7E88C3]"
@@ -84,12 +84,12 @@ const InvoiceTable = () => {
           <p className={`${pColor} text-[13px] leading-[18px] max-sm:hidden`}>
             QTY.
           </p>
-          {invoice?.items?.map((item) => (
+          {invoice?.items?.map((item, index) => (
             <h1
               className={`${
                 isDarkMode ? "text-[#DFE3FA]" : "text-[#7E88C3]"
               } text-[13px] leading-[15px]`}
-              key={item.name}
+              key={item.name || index}
             >
               {item.quantity}
             </h1>
@@ -97,12 +97,12 @@ const InvoiceTable = () => {
         </div>
         <div className="flex flex-col items-end gap-8 max-sm:hidden">
           <p className={`${pColor} text-[13px] leading-[18px]`}>Price</p>
-          {invoice?.items?.map((item) => (
+          {invoice?.items?.map((item, index) => (
             <h1
               className={`${
                 isDarkMode ? "text-[#DFE3FA]" : "text-[#7E88C3]"
               } text-[15px] leading-[15px]`}
-              key={item.name}
+              key={item.name || index}
             >
               £{" "}
               {item.price.toLocaleString("en-GB", {
@@ -116,12 +116,12 @@ const InvoiceTable = () => {
           <p className={`${pColor} text-[13px] leading-[18px] max-sm:hidden`}>
             Total
           </p>
-          {invoice?.items?.map((item) => (
+          {invoice?.items?.map((item, index) => (
             <h1
               className={`${
                 isDarkMode ? "text-[#FFFFFF]" : "text-[#0C0E16]"
               } text-[15px] leading-[15px]`}
-              key={item.name}
+              key={item.name || index}
             >
               £{" "}
               {item.total.toLocaleString("en-GB", {
@@ -149,4 +149,3 @@ const InvoiceTable = () => {
 };
 
 export default InvoiceTable;
-

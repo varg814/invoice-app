@@ -77,6 +77,30 @@ const InvoiceForm = ({ onClose }: { onClose: () => void }) => {
     formik.setFieldValue("items", updatedItems);
   };
 
+  const handleSubmit = async () => {
+    const cleanedItems = formik.values.items.map((item) => ({
+      itemName: item.name.trim(),
+      qty: Number(item.quantity),
+      price: Number(item.price),
+      total: Number(item.total),
+    }));
+    const payload = {
+      ...formik.values,
+      items: cleanedItems,
+    };
+    console.log("Sending payload:", JSON.stringify(payload, null, 2));
+    const resp = await fetch(`http://localhost:4000/invoices`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+    const data = await resp.json();
+    return data.token;
+  };
+  console.log(formik.values);
+
   return (
     <div className="fixed top-0 left-[103px] w-full h-full flex max-md:left-0 max-md:top-[80px] max-md:!mb-[120px] max-sm:w-full max-sm:h-screen max-sm:top-[72px] bg-black/50">
       {!showForm && (
@@ -123,7 +147,11 @@ const InvoiceForm = ({ onClose }: { onClose: () => void }) => {
         </div>
       )}
 
-      <InvoiceFooter onDiscard={onClose} onClose={onClose} />
+      <InvoiceFooter
+        onDiscard={onClose}
+        onClose={onClose}
+        onSubmit={handleSubmit}
+      />
     </div>
   );
 };
