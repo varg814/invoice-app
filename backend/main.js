@@ -12,8 +12,8 @@ app.use(express.json())
 app.use(cors())
 
 app.use('/auth', authRouter)
-app.use('/users', userRouter)
-app.use('/invoices', invoiceRouter)
+app.use('/users', isAuth, userRouter)
+app.use('/invoices', isAuth, invoiceRouter)
 
 app.listen(4000, () => {
     console.log('server running on http://localhost:4000')

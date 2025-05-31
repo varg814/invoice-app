@@ -27,7 +27,7 @@ const MainPage = () => {
     const fetchData = async () => {
       try {
         const respUser = await fetch(
-          "http://localhost:4000/current-user",
+          "http://localhost:4000/auth/current-user",
           {
             headers: { Authorization: `Bearer ${token}` },
           }

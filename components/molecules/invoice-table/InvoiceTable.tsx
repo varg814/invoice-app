@@ -26,7 +26,7 @@ const InvoiceTable = () => {
       }
 
       try {
-        const response = await fetch(`http://localhost:4000/${id}`, {
+        const response = await fetch(`http://localhost:4000/invoices/${id}`, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
