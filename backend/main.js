@@ -10,7 +10,11 @@ const cors = require("cors");
 connectToDb();
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: "https://invoice-app-one-black.vercel.app/",
+  credentials: true,
+}));
+
 
 app.use("/auth", authRouter);
 app.use("/users", isAuth, userRouter);

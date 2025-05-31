@@ -27,7 +27,7 @@ export default function SignIn() {
     e.preventDefault();
     if (!email || !password) return;
 
-    const resp = await fetch("http://localhost:4000/auth/sign-in", {
+    const resp = await fetch("https://invoice-app-egju.onrender.com/auth/sign-in", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
