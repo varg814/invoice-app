@@ -27,7 +27,7 @@ export default function Signup() {
     e.preventDefault();
     if (!email || !password || !fullName) return;
 
-    const resp = await fetch("https://invoice-app-egju.onrender.com/auth/sign-up", {
+    const resp = await fetch("http://localhost:4000/auth/sign-up", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -27,7 +27,7 @@ const MainPage = () => {
     const fetchData = async () => {
       try {
         const respUser = await fetch(
-          "https://invoice-app-egju.onrender.com/current-user",
+          "http://localhost:4000/current-user",
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -38,7 +38,7 @@ const MainPage = () => {
           return;
         }
 
-        const respInvoices = await fetch("https://invoice-app-egju.onrender.com/invoices", {
+        const respInvoices = await fetch("http://localhost:4000/invoices", {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (respInvoices.status === 200) {

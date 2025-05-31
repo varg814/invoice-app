@@ -23,7 +23,7 @@ const InvoiceInfo = () => {
       }
 
       try {
-        const response = await fetch(`https://invoice-app-egju.onrender.com/invoices/${id}`, {
+        const response = await fetch(`http://localhost:4000/invoices/${id}`, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
