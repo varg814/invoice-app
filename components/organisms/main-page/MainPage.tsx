@@ -38,7 +38,7 @@ const MainPage = () => {
           return;
         }
 
-        const respInvoices = await fetch("http://localhost:4000/posts", {
+        const respInvoices = await fetch("http://localhost:4000/invoices", {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (respInvoices.status === 200) {

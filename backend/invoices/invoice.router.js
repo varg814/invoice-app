@@ -3,6 +3,16 @@ const invoiceModel = require("../models/invoice.model");
 const userModel = require("../models/user.model");
 const invoiceRouter = Router();
 
+
+function generateInvoiceId() {
+  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const randomLetters = 
+    letters.charAt(Math.floor(Math.random() * letters.length)) +
+    letters.charAt(Math.floor(Math.random() * letters.length));
+  const randomNumbers = Math.floor(1000 + Math.random() * 9000); 
+  return randomLetters + randomNumbers;
+}
+
 invoiceRouter.get("/", async (req, res) => {
   try {
     const invoices = await invoiceModel
@@ -31,7 +41,7 @@ invoiceRouter.post("/", async (req, res) => {
       description,
       paymentTerms,
       items,
-      author,
+      // author,
     } = req.body;
 
     if (
@@ -48,13 +58,14 @@ invoiceRouter.post("/", async (req, res) => {
       !invoiceDate ||
       !description ||
       !paymentTerms ||
-      !Array.isArray(items) ||
-      !author
+      !Array.isArray(items) 
+      // !author
     ) {
       return res.status(400).json({ error: "Missing required fields." });
     }
-
+    const id = generateInvoiceId()
     const invoice = await invoiceModel.create({
+      id,
       email,
       senderAddress,
       senderCity,
@@ -83,6 +94,8 @@ invoiceRouter.post("/", async (req, res) => {
       .json({ error: "Failed to create invoice.", details: error.message });
   }
 });
+
+
 
 invoiceRouter.get("/:id", async (req, res) => {
   const { id } = req.params;

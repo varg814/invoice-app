@@ -1,7 +1,7 @@
 import React from "react";
 import { OnDiscardProps } from "@/types";
 import useStore from "@/store/useStore";
-const InvoiceFooter = ({ onDiscard }: OnDiscardProps) => {
+const InvoiceFooter = ({ onDiscard, onSubmit }: OnDiscardProps) => {
   const isDarkMode = useStore((state) => state.isDarkMode);
   const formFooterBgColor = isDarkMode ? "bg-[#141625]" : "bg-[#FFFFFF]";
   return (
@@ -18,7 +18,10 @@ const InvoiceFooter = ({ onDiscard }: OnDiscardProps) => {
         <button className="w-[133px] h-[48px] bg-[#373B53] rounded-[24px] cursor-pointer text-[#888EB0] max-sm:w-[117px]">
           Save as Draft
         </button>
-        <button className="w-[133px] h-[48px] bg-[#7C5DFA] rounded-[24px] cursor-pointer text-[#FFFFFF] max-sm:w-[112px]">
+        <button
+          className="w-[133px] h-[48px] bg-[#7C5DFA] rounded-[24px] cursor-pointer text-[#FFFFFF] max-sm:w-[112px]"
+          onClick={onSubmit}
+        >
           Save & Send
         </button>
       </div>
