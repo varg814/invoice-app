@@ -31,6 +31,7 @@ const InvoiceInfo = () => {
 
         if (response.status === 200) {
           const data = await response.json();
+          console.log("Fetched invoice data:", data);
           setInvoice(data);
         } else {
           console.error("Failed to fetch invoice");
@@ -61,7 +62,7 @@ const InvoiceInfo = () => {
         <ul
           className={`text-right text-[13px] leading-[18px] ${pColor} max-sm:text-left`}
         >
-          <li>{invoice?.senderAddress?.street}</li>
+          <li>{invoice?.senderAddress?.street}street</li>
           <li>{invoice?.senderAddress?.city}</li>
           <li>{invoice?.senderAddress?.postCode}</li>
           <li>{invoice?.senderAddress?.country}</li>
