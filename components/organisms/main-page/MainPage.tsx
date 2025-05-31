@@ -38,7 +38,7 @@ const MainPage = () => {
           return;
         }
 
-        const respInvoices = await fetch("http://localhost:4000/posts", {
+        const respInvoices = await fetch("http://localhost:4000/invoices", {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (respInvoices.status === 200) {
@@ -61,7 +61,9 @@ const MainPage = () => {
 
   if (loading) {
     return (
-      <main className={`${bgColor} flex justify-center items-center h-screen`}>
+    <main
+      className={`w-full max-md:h-[calc(100vh-80px)] max-sm:h-[calc(100vh-72px)] ${bgColor} pt-20 flex justify-center px-12 max-sm:px-6`}
+    >
         <p>Loading...</p>
       </main>
     );
