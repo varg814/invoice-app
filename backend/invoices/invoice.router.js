@@ -97,7 +97,7 @@ invoiceRouter.post("/", async (req, res) => {
       paymentDue: paymentDueDate.toISOString().split("T")[0],
       items,
       total: items.reduce((sum, item) => sum + item.total, 0), 
-      status: "Pending", 
+      status: "status", 
       author: authorId,
     });
 
