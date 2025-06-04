@@ -2,6 +2,8 @@ const { Router } = require("express");
 const invoiceModel = require("../models/invoice.model");
 const userModel = require("../models/user.model");
 const invoiceRouter = Router();
+const isAuth = require("../middlewares/isAuth");
+
 
 
 function generateInvoiceId() {
@@ -134,7 +136,7 @@ invoiceRouter.get("/:id", async (req, res) => {
   }
 });
 
-invoiceRouter.delete("/:id", async (req, res) => {
+invoiceRouter.delete("/:id",  isAuth ,async (req, res) => {
   try {
     const { id } = req.params;
 
