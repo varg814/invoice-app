@@ -1,8 +1,8 @@
 const { default: mongoose } = require("mongoose");
 
 const itemSchema = new mongoose.Schema({
-  itemName: { type: String, required: true },
-  qty: { type: mongoose.Schema.Types.Mixed, required: true },
+  name: { type: String, required: true },
+  quantity: { type: mongoose.Schema.Types.Mixed, required: true },
   price: { type: mongoose.Schema.Types.Mixed, required: true },
   total: { type: mongoose.Schema.Types.Mixed, required: true }
 });
