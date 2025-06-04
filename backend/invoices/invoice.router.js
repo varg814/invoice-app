@@ -65,7 +65,7 @@ invoiceRouter.post("/", async (req, res) => {
 
     const id = generateInvoiceId();
 
-    const days = parseInt(paymentTerms.match(/\d+/)[0], 10);
+    const days = Number(paymentTerms.match(/\d+/)[0], 10);
     const paymentDueDate = new Date(invoiceDate);
     paymentDueDate.setDate(paymentDueDate.getDate() + days);
 
@@ -73,6 +73,7 @@ invoiceRouter.post("/", async (req, res) => {
     if (!authorId) {
       return res.status(401).json({ error: "User is not authenticated." });
     }
+
 
     const invoice = await invoiceModel.create({
       id,
@@ -100,6 +101,7 @@ invoiceRouter.post("/", async (req, res) => {
       status: req.body.status || "Paid", 
       author: authorId,
     });
+
 
     res.status(201).json(invoice);
   } catch (error) {
@@ -129,6 +131,22 @@ invoiceRouter.get("/:id", async (req, res) => {
     res
       .status(500)
       .json({ error: "Failed to fetch invoice.", details: error.message });
+  }
+});
+
+invoiceRouter.delete("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deletedInvoice = await invoiceModel.findOneAndDelete({ id });
+
+    if (!deletedInvoice) {
+      return res.status(404).json({ error: "Invoice not found" });
+    }
+
+    res.status(200).json({ message: "Invoice deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to delete invoice", details: error.message });
   }
 });
 
