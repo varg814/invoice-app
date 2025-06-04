@@ -82,8 +82,8 @@ const InvoiceForm = ({ onClose }: { onClose: () => void }) => {
     const token = getCookie("accessToken");
     console.log("token", token);
     const cleanedItems = formik.values.items.map((item) => ({
-      itemName: item.name.trim(),
-      qty: Number(item.quantity),
+      name: item.name.trim(),
+      quantity: Number(item.quantity),
       price: Number(item.price),
       total: Number(item.total),
     }));
@@ -101,6 +101,8 @@ const InvoiceForm = ({ onClose }: { onClose: () => void }) => {
       body: JSON.stringify(payload),
     });
     const data = await resp.json();
+    console.log("response:", data);
+    onClose();
     return data.token;
   };
   console.log(formik.values);
@@ -141,7 +143,7 @@ const InvoiceForm = ({ onClose }: { onClose: () => void }) => {
 
             <button
               className={`w-full h-[48px] ${
-                isDarkMode ? "bg-[#252945]" : "bg-[#F9FAFE]"
+                isDarkMode ? "bg-[#343a64]" : "bg-[#F9FAFE]"
               } cursor-pointer rounded-[24px] !mt-[24px] !mb-5 text-[#7E88C3] max-md:!mb-[120px]`}
               onClick={addNewItem}
             >
