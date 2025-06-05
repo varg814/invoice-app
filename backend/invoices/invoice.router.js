@@ -4,14 +4,12 @@ const userModel = require("../models/user.model");
 const invoiceRouter = Router();
 const isAuth = require("../middlewares/isAuth");
 
-
-
 function generateInvoiceId() {
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  const randomLetters = 
+  const randomLetters =
     letters.charAt(Math.floor(Math.random() * letters.length)) +
     letters.charAt(Math.floor(Math.random() * letters.length));
-  const randomNumbers = Math.floor(1000 + Math.random() * 9000); 
+  const randomNumbers = Math.floor(1000 + Math.random() * 9000);
   return randomLetters + randomNumbers;
 }
 
@@ -21,7 +19,8 @@ invoiceRouter.get("/", async (req, res) => {
       .find()
       .populate("author", "fullName email");
     res.json(invoices);
-  } catch (error) {
+  } catch (err) {
+    console.log(err);
     res.status(500).json({ error: "Failed to fetch invoices." });
   }
 });
@@ -71,11 +70,10 @@ invoiceRouter.post("/", async (req, res) => {
     const paymentDueDate = new Date(invoiceDate);
     paymentDueDate.setDate(paymentDueDate.getDate() + days);
 
-    const authorId = req.userId; 
+    const authorId = req.userId;
     if (!authorId) {
       return res.status(401).json({ error: "User is not authenticated." });
     }
-
 
     const invoice = await invoiceModel.create({
       id,
@@ -99,11 +97,10 @@ invoiceRouter.post("/", async (req, res) => {
       paymentTerms,
       paymentDue: paymentDueDate.toISOString().split("T")[0],
       items,
-      total: items.reduce((sum, item) => sum + item.total, 0), 
-      status: req.body.status || "Paid", 
+      total: items.reduce((sum, item) => sum + item.total, 0),
+      status: req.body.status || "paid",
       author: authorId,
     });
-
 
     res.status(201).json(invoice);
   } catch (error) {
@@ -113,8 +110,6 @@ invoiceRouter.post("/", async (req, res) => {
     });
   }
 });
-
-
 
 invoiceRouter.get("/:id", async (req, res) => {
   const { id } = req.params;
@@ -136,7 +131,7 @@ invoiceRouter.get("/:id", async (req, res) => {
   }
 });
 
-invoiceRouter.delete("/:id",  isAuth ,async (req, res) => {
+invoiceRouter.delete("/:id", isAuth, async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -148,7 +143,9 @@ invoiceRouter.delete("/:id",  isAuth ,async (req, res) => {
 
     res.status(200).json({ message: "Invoice deleted successfully" });
   } catch (error) {
-    res.status(500).json({ error: "Failed to delete invoice", details: error.message });
+    res
+      .status(500)
+      .json({ error: "Failed to delete invoice", details: error.message });
   }
 });
 
