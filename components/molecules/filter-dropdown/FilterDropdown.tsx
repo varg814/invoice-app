@@ -46,7 +46,7 @@ const FilterDropdown = ({
   }, [selectedStatus]);
 
   return (
-    <div>
+    <div className="w-[150px] flex justify-center max-sm:w-[95px]">
       <Button
         className="flex gap-3 items-center font-bold cursor-pointer"
         onClick={toggleFilterDropdown}
@@ -81,7 +81,7 @@ const FilterDropdown = ({
 
       {isFilterOpen && (
         <div
-          className={`absolute w-48 p-6 flex flex-col gap-4 rounded-lg left-[-10%] top-15 max-sm:w-30 max-sm:p-2.5 ${
+          className={`absolute w-48 p-6 flex flex-col gap-4 rounded-lg left-[-7.5%] top-15 max-sm:w-30 max-sm:p-2.5 max-sm:left-[-5%] ${
             isDarkMode ? "bg-[#252945]" : "bg-white"
           }`}
         >
