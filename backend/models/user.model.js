@@ -15,12 +15,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       select: false,
-    },
-    invoices: {
-      type: [mongoose.Schema.Types.ObjectId],
-      ref: "invoice",
-      default: [],
-    },
+    }
   },
   { timestamps: true }
 );

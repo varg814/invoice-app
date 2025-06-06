@@ -15,8 +15,9 @@ function generateInvoiceId() {
 
 invoiceRouter.get("/", async (req, res) => {
   try {
+    const authorId = req.userId
     const invoices = await invoiceModel
-      .find()
+      .find({author: authorId})
       .populate("author", "fullName email");
     res.json(invoices);
   } catch (err) {
